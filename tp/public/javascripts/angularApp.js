@@ -2,7 +2,7 @@ var app = angular.module('postsApp', ['ui.router']);
 
 
 // Hackeada para que exista la variable 'post' antes de que se inicialice el 'Post_Ctrl'
-app.factory('post',[function(){return null;}])
+// app.factory('post',[function(){return null;}])
 
 
 app.config([
