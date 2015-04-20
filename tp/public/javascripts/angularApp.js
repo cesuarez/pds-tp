@@ -1,4 +1,4 @@
-var app = angular.module('tripsApp', ['ui.router']);
+var app = angular.module('tripsApp', ['ui.router', 'ui.bootstrap.datetimepicker']);
 
 app.config([
 '$stateProvider',

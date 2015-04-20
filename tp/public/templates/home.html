@@ -1,22 +1,95 @@
+<style> .glyphicon-remove { cursor:pointer } </style>
+
 <div class="page-header">
     <h1>Viajes</h1>
 </div>
 
 <div ng-show="trips.length > 0" ng-repeat="trip in trips | orderBy: '-initDate'">
-    <span style="font-size:20px"> {{trip.name}} </span>
+    <div class="row">
+        <a class="col-md-3" href="#/trips/{{trip._id}}" style="font-size:20px"> {{trip.name}} </a>
+        
+        <!--<span class="glyphicon glyphicon-remove" ng-really-message="Are you sure?" 
+              ng-really-click="removeTrip(trip._id)"></span>
+-->
+
+        <span class="glyphicon glyphicon-remove" ng-click="prepareForDelete(trip._id)"></span>
+    </div>
 </div> 
 
 <span ng-hide="trips.length > 0">
     No hay viajes creados
 </span>
 
+<div class="row">&nbsp;</div>
+
 <form ng-submit="addTrip()" style="margin-top:30px;">
     <h3>Agregar un viaje</h3>
+
+    <!-- Name -->
     <div class="form-group">
         <input type="text" style="width: 250px" class="form-control" placeholder="Nombre" ng-model="name"></input>
     </div>
 
-    <!-- Agregar Dates!! -->
+    <!-- Init Date -->
+    <div class="form-group">
+        <label>Fecha de inicio:</label>
+        <div style="width: 200px"  class="dropdown">
+            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">    
+                <div class="input-group">
+                  <input type="text" class="form-control" ng-model="initDate | date : format : timezone">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>    
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="initDate"
+                                data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }">
+                </datetimepicker>
+            </ul>
+        </div>
+    </div>
 
-    <button type="submit" class="btn btn-primary">Crear</button>
+    <!-- End Date -->
+    <div class="form-group">
+        <label>Fecha de regreso:</label>
+        <div style="width: 200px"  class="dropdown">
+            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">    
+                <div class="input-group">
+                  <input type="text" class="form-control" ng-model="endDate | date : format : timezone">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>    
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="endDate"
+                                data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }">
+                </datetimepicker>
+            </ul>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
 </form>
+
+<div class="modal-backdrop fade in" ng-show="displayDeletePopup"></div>
+
+<div class="alert alert-block alert-error notification fade in" ng-show="displayDeletePopup" id="confirm-delete"  
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="position: fixed; top:30%; left:27%; z-index: 1500;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+            </div>
+            <div class="modal-body">
+                <span>¿Está seguro que quiere eliminar el viaje?</span>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="btn btn-danger" ng-click="removeTrip()">Eliminar</a>
+                <a href="" class="btn" ng-click="showDeletePopup(false)">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

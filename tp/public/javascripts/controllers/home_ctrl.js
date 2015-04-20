@@ -2,12 +2,14 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', fun
 
     $scope.trips = tripsFactory.trips;
 
+    $scope.displayDeletePopup = false;
+
     $scope.addTrip = function(){
         if($scope.name !== '' && $scope.name !== undefined) {
             tripsFactory.create({
                 name: $scope.name,
-                initDate: new Date(), //$scope.initDate,
-                endDate: new Date() // $scope.endDate
+                initDate: $scope.initDate,
+                endDate: $scope.endDate
             });
             $scope.name = '';
             $scope.initDate = null;
@@ -15,4 +17,36 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', fun
         }
     };
 
+    $scope.removeTrip = function(){
+        tripsFactory.delete($scope.tripToRemove);
+        $scope.showDeletePopup(false);
+    }
+
+    $scope.prepareForDelete = function(id){
+        console.log("BORRO: " + id);
+        $scope.tripToRemove = id;
+        $scope.showDeletePopup(true);
+    }
+
+    $scope.showDeletePopup = function(bool) {
+        $scope.displayDeletePopup = bool;   
+    }
+
 }]);
+
+/*
+// Confirm Directive
+angular.module('tripsApp').directive('ngReallyClick', [function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('click', function() {
+                var message = attrs.ngReallyMessage;
+                if (message && confirm(message)) {
+                    scope.$apply(attrs.ngReallyClick);
+                }
+            });
+        }
+    }
+}]);
+*/

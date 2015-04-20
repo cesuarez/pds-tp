@@ -27,6 +27,18 @@ router.post('/trips', function(req, res, next) {
     });
 });
 
+// Delete Trip
+router.put('/trips/:trip/delete', function(req, res, next) {
+    Trip.findByIdAndRemove(req.param("trip"), function(err, data) {
+        if (err) { return next(err); }
+
+        Trip.find(function(err, trips){
+            if(err){ return next(err); }
+            res.json(trips);
+        });
+    });
+});
+
 // Get Trip
 /*
 router.get('/trips/:trip', function(req, res) {
@@ -40,6 +52,7 @@ router.get('/trips/:trip', function(req, res) {
 
 
 // Params
+/*
 router.param('trip', function(req, res, next, id) {
     var query = Post.findById(id);
 
@@ -51,6 +64,6 @@ router.param('trip', function(req, res, next, id) {
     	return next();
     });
 });
-
+*/
 module.exports = router;
 

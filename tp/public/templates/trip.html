@@ -1,14 +1,18 @@
 <div class="page-header">
-    <h3> {{trip.name}} </h3>
+    <h1> {{trip.name}} </h1>
 </div>
 
 <div class="row">&nbsp;</div>
 
-<label class="form-control"> Hora de salida: </label>
-<span> {{trip.initDate}} </span>
+<div class"row">
+	<label class="form-group"> Hora de salida: </label>
+	<span> {{trip.initDate | date : format : timezone}} </span>
+</div>
 
-<label class="form-control"> Hora de llegada: </label>
-<span> {{trip.endDate}} </span>
+<div class"row">
+	<label class="form-group"> Hora de llegada: </label>
+	<span> {{trip.endDate | date : format : timezone}} </span>
+</div>
 
 <div class="row">&nbsp;</div>
 
