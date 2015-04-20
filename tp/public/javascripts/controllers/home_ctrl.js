@@ -1,20 +1,18 @@
-angular.module('postsApp').controller('HomeCtrl', ['$scope', 'postsFactory', function($scope, postsFactory){
+angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', function($scope, tripsFactory){
 
-    $scope.posts = postsFactory.posts;
+    $scope.trips = tripsFactory.trips;
 
-    $scope.addPost = function(){
-        if($scope.title !== '' && $scope.title !== undefined) {
-            postsFactory.create({
-                title: $scope.title,
-                link: $scope.link
+    $scope.addTrip = function(){
+        if($scope.name !== '' && $scope.name !== undefined) {
+            tripsFactory.create({
+                name: $scope.name,
+                initDate: new Date(), //$scope.initDate,
+                endDate: new Date() // $scope.endDate
             });
-            $scope.title = '';
-            $scope.link = '';
+            $scope.name = '';
+            $scope.initDate = null;
+            $scope.endDate = null;
         }
     };
-
-    $scope.incrementUpvotes = function(post){
-        postsFactory.upvote(post);
-    }
 
 }]);

@@ -1,9 +1,4 @@
-var app = angular.module('postsApp', ['ui.router']);
-
-
-// Hackeada para que exista la variable 'post' antes de que se inicialice el 'Post_Ctrl'
-// app.factory('post',[function(){return null;}])
-
+var app = angular.module('tripsApp', ['ui.router']);
 
 app.config([
 '$stateProvider',
@@ -16,19 +11,19 @@ function($stateProvider, $urlRouterProvider) {
         templateUrl: '/templates/home.html',
         controller: 'HomeCtrl',
         resolve: {
-            postPromise: ['postsFactory', function(postsFactory){
-                return postsFactory.getAll();
+            tripPromise: ['tripsFactory', function(tripsFactory){
+                return tripsFactory.getAll();
             }]
         }
     })
     
-    .state('posts', {
-        url: '/posts/{id}',
-        templateUrl: '/templates/posts.html',
-        controller: 'PostsCtrl',
+    .state('trip', {
+        url: '/trips/{id}',
+        templateUrl: '/templates/trip.html',
+        controller: 'TripsCtrl',
         resolve: {
-            post: ['$stateParams', 'postsFactory', function($stateParams, postsFactory) {
-                return postsFactory.get($stateParams.id);
+            trip: ['$stateParams', 'tripsFactory', function($stateParams, tripsFactory) {
+                return tripsFactory.get($stateParams.id);
             }]
         }
         
