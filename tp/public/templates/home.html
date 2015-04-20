@@ -1,0 +1,22 @@
+<div class="page-header">
+    <h1>Viajes</h1>
+</div>
+
+<div ng-show="trips.length > 0" ng-repeat="trip in trips | orderBy: '-initDate'">
+    <span style="font-size:20px"> {{trip.name}} </span>
+</div> 
+
+<span ng-hide="trips.length > 0">
+    No hay viajes creados
+</span>
+
+<form ng-submit="addTrip()" style="margin-top:30px;">
+    <h3>Agregar un viaje</h3>
+    <div class="form-group">
+        <input type="text" style="width: 250px" class="form-control" placeholder="Nombre" ng-model="name"></input>
+    </div>
+
+    <!-- Agregar Dates!! -->
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+</form>
