@@ -1,19 +1,17 @@
-<style> .glyphicon-remove { cursor:pointer } </style>
+<style> 
+.glyphicon-remove { cursor:pointer } 
+.alert-danger {padding-top:6px; width:350px; box-shadow:none; margin-bottom:0px;}
+</style>
 
 <div class="page-header">
     <h1>Viajes</h1>
 </div>
 
 <div ng-show="trips.length > 0" ng-repeat="trip in trips | orderBy: 'initDate'">
-    <div class="row">
+    <ul class="row">
         <a class="col-md-3" href="#/trips/{{trip._id}}" style="font-size:20px"> {{trip.name}} </a>
-        
-        <!--<span class="glyphicon glyphicon-remove" ng-really-message="Are you sure?" 
-              ng-really-click="removeTrip(trip._id)"></span>
--->
-
-        <span class="glyphicon glyphicon-remove" ng-click="prepareForDelete(trip._id)"></span>
-    </div>
+        <span class="btn btn-danger glyphicon glyphicon-remove" ng-click="prepareForDelete(trip._id)"></span>
+    </ul>
 </div> 
 
 <span ng-hide="trips.length > 0">
@@ -22,52 +20,77 @@
 
 <div class="row">&nbsp;</div>
 
-<form ng-submit="addTrip()" style="margin-top:30px;">
+<form class="form-horizontal" ng-submit="addTrip()" name="tripForm" style="margin-top:30px;">
     <h3>Agregar un viaje</h3>
 
-    <!-- Name -->
-    <div class="form-group">
-        <input type="text" style="width: 250px" class="form-control" placeholder="Nombre" ng-model="name"></input>
-    </div>
-
-    <!-- Init Date -->
-    <div class="form-group">
-        <label>Fecha de inicio:</label>
-        <div style="width: 200px"  class="dropdown">
-            <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="">    
-                <div class="input-group">
-                  <input type="text" class="form-control" ng-model="initDate | date : format : timezone">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                </div>    
-            </a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <datetimepicker data-ng-model="initDate"
-                                data-datetimepicker-config="{ dropdownSelector: '#dropdown1' }">
-                </datetimepicker>
-            </ul>
+    <div>
+        
+        <!-- Name -->
+        <div class="form-group">
+            <div class="{{nameErrors ? 'has-error' : (validTripForm === null ? '' : 'has-success')}} col-md-4">
+                <input class="form-control" type="text" name="name" style="width: 250px" placeholder="Nombre"
+                       ng-model="trip.name"></input>
+            </div>
+            <div class="col-md-8">
+                <span class="alert alert-danger form-control" ng-show="nameErrors"
+                      style="color:red" ng-bind="nameErrors">
+                </span>
+            </div>
         </div>
-    </div>
 
-    <!-- End Date -->
-    <div class="form-group">
-        <label>Fecha de regreso:</label>
-        <div style="width: 200px"  class="dropdown">
-            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">    
-                <div class="input-group">
-                  <input type="text" class="form-control" ng-model="endDate | date : format : timezone">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                </div>    
-            </a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <datetimepicker data-ng-model="endDate"
-                                data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }">
-                </datetimepicker>
-            </ul>
+        <!-- Init Date -->
+        <div class="form-group">
+            <label class="col-md-12">Fecha de Inicio:</label>
+            <div class="{{initDateErrors ? 'has-error' : (validTripForm === null ? '' : 'has-success')}} col-md-4">
+                <div style="width: 250px"  class="dropdown">
+                    <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="">    
+                        <div class="input-group">
+                          <input type="date" name="initDate" class="form-control" ng-model="trip.initDate" readonly>
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>    
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="trip.initDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#dropdown1' }">
+                        </datetimepicker>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <span class="alert alert-danger form-control" ng-show="initDateErrors"
+                      style="color:red" ng-bind="initDateErrors">
+                </span>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Crear</button>
+        <!-- End Date -->
+        <div class="form-group">
+            <label class="col-md-12">Fecha de Regreso:</label>
+            <div class="{{endDateErrors ? 'has-error' : (validTripForm === null ? '' : 'has-success')}} col-md-4">
+                <div style="width: 250px"  class="dropdown">
+                    <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">    
+                        <div class="input-group">
+                          <input type="date" name="endDate" class="form-control" ng-model="trip.endDate" readonly>
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>    
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="trip.endDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }">
+                        </datetimepicker>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <span class="alert alert-danger form-control" ng-show="endDateErrors" 
+                      style="color:red" ng-bind="endDateErrors">
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <button type="submit" class="btn btn-primary"> Crear </button>
+        </div>
     </div>
 </form>
 

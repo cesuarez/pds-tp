@@ -3,17 +3,25 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', fun
     $scope.trips = tripsFactory.trips;
 
     $scope.displayDeletePopup = false;
+    $scope.trip = {};
+    $scope.validTripForm = null;
+
+    $scope.resetTrip = function(){
+        $scope.trip.name = '';
+        $scope.trip.initDate = null;
+        $scope.trip.endDate = null;
+        $scope.validTripForm = null;
+    }
 
     $scope.addTrip = function(){
-        if($scope.name !== '' && $scope.name !== undefined) {
+        $scope.validateTripForm();
+        if($scope.validTripForm) {
             tripsFactory.create({
-                name: $scope.name,
-                initDate: $scope.initDate,
-                endDate: $scope.endDate
+                name: $scope.trip.name,
+                initDate: $scope.trip.initDate,
+                endDate: $scope.trip.endDate
             });
-            $scope.name = '';
-            $scope.initDate = null;
-            $scope.endDate = null;
+            $scope.resetTrip()
         }
     };
 
@@ -23,30 +31,59 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', fun
     }
 
     $scope.prepareForDelete = function(id){
-        console.log("BORRO: " + id);
         $scope.tripToRemove = id;
         $scope.showDeletePopup(true);
     }
 
     $scope.showDeletePopup = function(bool) {
-        $scope.displayDeletePopup = bool;   
+        $scope.displayDeletePopup = bool;
     }
 
-}]);
-
-/*
-// Confirm Directive
-angular.module('tripsApp').directive('ngReallyClick', [function() {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            element.bind('click', function() {
-                var message = attrs.ngReallyMessage;
-                if (message && confirm(message)) {
-                    scope.$apply(attrs.ngReallyClick);
-                }
-            });
+    $scope.validName = function() {
+        if (!$scope.trip.name){
+            $scope.nameErrors = "Ingrese un Nombre";
+            return false;
+        } else if ($scope.trips.filter(function(trip) {return trip.name == $scope.trip.name;}).length > 0) {
+            $scope.nameErrors = "El Nombre ya existe";
+            return false;
+        } else {
+            $scope.nameErrors = "";
+            return true;
         }
     }
+
+    $scope.validDate = function(date, errorsName) {
+        if (!date){
+            $scope[errorsName] = "Ingrese una fecha";
+            return false;
+        } else {
+            $scope[errorsName] = "";
+            return true;
+        }
+    }
+
+    $scope.validTimeInterval = function() {
+        if (!$scope.initDateErrors && !$scope.endDateErrors) {
+            if ($scope.trip.initDate > $scope.trip.endDate){
+                $scope.endDateErrors = "La fecha de llegada es menor que la de salida"
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    $scope.validDates = function() {
+        $scope.validDate($scope.trip.initDate, "initDateErrors");
+        $scope.validDate($scope.trip.endDate, "endDateErrors");
+        return $scope.validTimeInterval();
+    }
+
+    $scope.validateTripForm = function(){
+        $scope.validTripForm = $scope.validName();
+        $scope.validTripForm = $scope.validDates() && $scope.validTripForm;
+    }
+
 }]);
-*/
