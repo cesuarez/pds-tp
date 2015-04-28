@@ -1,17 +1,6 @@
 <div class="page-header">
     <h1> {{trip.name}} </h1>
-</div>
-
-<div class="row">&nbsp;</div>
-
-<div class"row">
-	<label class="form-group"> Hora de salida: </label>
-	<span> {{trip.initDate | date : format : timezone}} </span>
-</div>
-
-<div class"row">
-	<label class="form-group"> Hora de llegada: </label>
-	<span> {{trip.endDate | date : format : timezone}} </span>
+    <span style="color:grey"> {{trip.initDate | date : 'shortDate'}} al {{trip.endDate | date : 'shortDate'}}</span>
 </div>
 
 <div class="row">&nbsp;</div>

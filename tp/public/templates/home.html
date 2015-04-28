@@ -1,6 +1,10 @@
 <style> 
 .glyphicon-remove { cursor:pointer } 
 .alert-danger {padding-top:6px; width:350px; box-shadow:none; margin-bottom:0px;}
+.unstyled::-webkit-inner-spin-button,
+.unstyled::-webkit-outer-spin-button,
+.unstyled::-webkit-calendar-picker-indicator {display: none; -webkit-appearance: none;}
+.unstyled::-webkit-clear-button {-webkit-appearance: none; margin: 0;}
 </style>
 
 <div class="page-header">
@@ -45,7 +49,7 @@
                 <div style="width: 250px"  class="dropdown">
                     <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="">    
                         <div class="input-group">
-                          <input type="date" name="initDate" class="form-control" ng-model="trip.initDate" readonly>
+                          <input type="date" name="initDate" class="unstyled form-control" ng-model="trip.initDate">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>    
                     </a>
@@ -70,7 +74,7 @@
                 <div style="width: 250px"  class="dropdown">
                     <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">    
                         <div class="input-group">
-                          <input type="date" name="endDate" class="form-control" ng-model="trip.endDate" readonly>
+                          <input type="date" name="endDate" class="unstyled form-control" ng-model="trip.endDate">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>    
                     </a>
