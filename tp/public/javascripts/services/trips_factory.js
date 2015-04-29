@@ -21,13 +21,15 @@ angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($h
 	};
 
 	o.create = function(trip) {
-	    return $http.post('/trips', trip).success(function(data){
+	    return $http.post('/trips', trip, {headers: {Authorization: 'Bearer '+auth.getToken()}
+		}).success(function(data){
 	    	o.trips.push(data);
 	    });
 	};
 
 	o.delete = function(id) {
-		$http.put('/trips/' + id + '/delete').success(function(data){
+		$http.put('/trips/' + id + '/delete', {headers: {Authorization: 'Bearer '+auth.getToken()}
+		}).success(function(data){
 	        angular.copy(data, o.trips);
 	    });
 	}

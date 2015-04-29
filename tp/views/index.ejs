@@ -31,13 +31,13 @@
                     <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
                     <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
                     <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
-                    <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+                    <li ng-hide="isLoggedIn()"><a href="/#/register">Registrarse</a></li>
                 </ul>
             </nav>
             <div ng-hide="isLoggedIn()">
-                <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can use this page.</h3>
+                <h3>Necesita hacer <a href="/#/login">Log In</a> i  <a href="/#/register">Registrarse</a> antes de poder ver esta pagina.</h3>
              </div>
-             <div class="row" ng-show="isLoggedIn()">
+             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <ui-view></ui-view>              
                 </div>

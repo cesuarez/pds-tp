@@ -1,3 +1,5 @@
+<div ng-show="isLoggedIn">
+
 <div class="page-header">
     <h1> {{trip.name}} </h1>
     <span style="color:grey"> {{trip.initDate | date : 'shortDate'}} al {{trip.endDate | date : 'shortDate'}}</span>
@@ -6,3 +8,5 @@
 <div class="row">&nbsp;</div>
 
 <button class="btn btn-default" ng-click="back()"> Volver </button>
+
+</div>

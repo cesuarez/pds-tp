@@ -1,12 +1,12 @@
-angular.module('tripsApp').factory('auth', ['$http', '$window', function($http, $window){
+angular.module('tripsApp').factory('auth', ['$http', '$window', '$location', function($http, $window, $location){
   var auth = {};
 
   auth.saveToken = function (token){
-    $window.localStorage['flapper-news-token'] = token;
+    $window.localStorage['trips-token'] = token;
   };
 
   auth.getToken = function (){
-    return $window.localStorage['flapper-news-token'];
+    return $window.localStorage['trips-token'];
   }
 
   auth.isLoggedIn = function(){
@@ -44,7 +44,8 @@ angular.module('tripsApp').factory('auth', ['$http', '$window', function($http, 
 
 
   auth.logOut = function(){
-    $window.localStorage.removeItem('flapper-news-token');
+    $window.localStorage.removeItem('trips-token');
+    $location.url("");
   };
 
   return auth;

@@ -1,4 +1,7 @@
-angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', function($scope, tripsFactory){
+angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', 'auth', 
+    function($scope, tripsFactory, auth){
+
+    $scope.isLoggedIn = auth.isLoggedIn();
 
     $scope.trips = tripsFactory.trips;
 
@@ -21,6 +24,8 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', fun
                 initDate: $scope.trip.initDate,
                 endDate: $scope.trip.endDate
             });
+            console.log($scope.trip.initDate);
+            console.log($scope.trip.endDate);
             $scope.resetTrip()
         }
     };
