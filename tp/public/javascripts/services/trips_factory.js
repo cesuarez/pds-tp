@@ -1,4 +1,4 @@
-angular.module('tripsApp').factory('tripsFactory', ['$http', function($http){
+angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($http, auth){
   	var o = {
     	trips: []
   	};

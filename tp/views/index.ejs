@@ -18,10 +18,21 @@
         <script src="/javascripts/angularApp.js"></script>
         <script src="/javascripts/controllers/home_ctrl.js"></script>
         <script src="/javascripts/controllers/trip_ctrl.js"></script>
+        <script src="/javascripts/controllers/auth_ctrl.js"></script>
+        <script src="/javascripts/controllers/nav_ctrl.js"></script>
         <script src="/javascripts/services/trips_factory.js"></script>
-
+        <script src="/javascripts/services/authentication_factory.js"></script>
     </head>
     <body ng-app="tripsApp">
+
+        <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
+            <ul class="nav navbar-nav">
+                <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+                <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+                <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+                <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+            </ul>
+        </nav>
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
