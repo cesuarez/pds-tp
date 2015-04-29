@@ -120,5 +120,15 @@ router.post('/login', function(req, res, next){
   })(req, res, next);
 });
 
+/***************************************************/
+//                  Index
+/***************************************************/
+
+
+router.post('/index', function(req, res, next) {
+});
+
+
+
 module.exports = router;
 

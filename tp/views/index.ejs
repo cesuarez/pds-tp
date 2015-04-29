@@ -23,6 +23,29 @@
         <script src="/javascripts/services/trips_factory.js"></script>
         <script src="/javascripts/services/authentication_factory.js"></script>
     </head>
+
+    <body ng-app="tripsApp">
+        <div ng-controller="NavCtrl">
+            <nav class="navbar navbar-default pull-right">
+                <ul class="nav navbar-nav">
+                    <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+                    <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+                    <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+                    <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+                </ul>
+            </nav>
+            <div ng-hide="isLoggedIn()">
+                <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can use this page.</h3>
+             </div>
+             <div class="row" ng-show="isLoggedIn()">
+                <div class="col-md-8 col-md-offset-2">
+                    <ui-view></ui-view>              
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <!--
     <body ng-app="tripsApp">
 
         <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
@@ -39,6 +62,7 @@
                 <ui-view></ui-view>              
             </div>
         </div>
-
     </body>
+-->
+
 </html>

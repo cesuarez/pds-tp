@@ -49,8 +49,22 @@ function($stateProvider, $urlRouterProvider) {
                 $state.go('home');
             }
         }]
-    });
+    })
 
-    $urlRouterProvider.otherwise('home');
+
+        .state('index', {
+        url: '/index',
+        templateUrl: '/templates/index.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(auth.isLoggedIn()){
+                $state.go('home');
+            }
+        }]
+    })
+    ;
+
+   $urlRouterProvider.otherwise('index');
+//    $urlRouterProvider.otherwise('home');
 }]);
 
