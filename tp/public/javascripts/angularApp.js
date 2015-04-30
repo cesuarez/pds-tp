@@ -14,7 +14,12 @@ function($stateProvider, $urlRouterProvider) {
             tripPromise: ['tripsFactory', function(tripsFactory){
                 return tripsFactory.getAll();
             }]
-        }
+        },
+        onEnter: ['$location', 'auth', function($location , auth){
+            if(!auth.isLoggedIn()){
+                $location.path('');
+            }
+        }]
     })
     
     .state('trip', {
@@ -25,7 +30,12 @@ function($stateProvider, $urlRouterProvider) {
             trip: ['$stateParams', 'tripsFactory', function($stateParams, tripsFactory) {
                 return tripsFactory.get($stateParams.id);
             }]
-        }
+        },
+        onEnter: ['$location', 'auth', function($location , auth){
+            if(!auth.isLoggedIn()){
+                $location.path('');
+            }
+        }]
         
     })
 
