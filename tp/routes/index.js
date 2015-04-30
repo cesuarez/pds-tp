@@ -29,7 +29,6 @@ router.get('/trips', function(req, res, next) {
 
 
 // Create Trip
-//router.post('/trips', function(req, res, next) {
 router.post('/trips', auth, function(req, res, next) {
     var trip = new Trip(req.body);
     //trip.author = req.payload.username;
@@ -41,8 +40,7 @@ router.post('/trips', auth, function(req, res, next) {
 });
 
 // Delete Trip
-//router.put('/trips/:trip/delete', function(req, res, next) {
-router.put('/trips/:trip/delete', auth, function(req, res, next) {
+router.delete('/trips/:trip', auth, function(req, res, next) {
     Trip.findByIdAndRemove(req.param("trip"), function(err, data) {
         if (err) { return next(err); }
 
@@ -54,15 +52,21 @@ router.put('/trips/:trip/delete', auth, function(req, res, next) {
 });
 
 // Get Trip
+router.get('/trips/:trip', function(req, res, next) {
+    Trip.findById(req.param("trip"), function (err, trip){
+        if (err) { return next(err); }
+        if (!trip) { return next(new Error('Viaje no encontrado')); }
+
+        res.json(trip);
+    });
 /*
-router.get('/trips/:trip', function(req, res) {
     req.post.populate('comments', function(err, post) {
         if (err) { return next(err); }
 
         res.json(post);
     });
-});
 */
+});
 
 
 // Params
@@ -87,7 +91,7 @@ router.param('trip', function(req, res, next, id) {
 // Register
 router.post('/register', function(req, res, next){
   if(!req.body.username || !req.body.password){
-    return res.status(400).json({message: 'Please fill out all fields'});
+    return res.status(400).json({message: 'Por favor llene todos los campos'});
   }
 
   var user = new User();
@@ -106,7 +110,7 @@ router.post('/register', function(req, res, next){
 // Login
 router.post('/login', function(req, res, next){
   if(!req.body.username || !req.body.password){
-    return res.status(400).json({message: 'Please fill out all fields'});
+    return res.status(400).json({message: 'Por favor llene todos los campos'});
   }
 
   passport.authenticate('local', function(err, user, info){
