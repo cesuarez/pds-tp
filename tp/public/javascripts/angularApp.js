@@ -36,7 +36,6 @@ function($stateProvider, $urlRouterProvider) {
                 $location.path('');
             }
         }]
-        
     })
 
     .state('login', {

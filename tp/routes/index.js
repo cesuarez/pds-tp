@@ -62,12 +62,10 @@ router.get('/trips/:trip', function(req, res, next) {
 /*
     req.post.populate('comments', function(err, post) {
         if (err) { return next(err); }
-
         res.json(post);
     });
 */
 });
-
 
 // Params
 /*
@@ -88,39 +86,46 @@ router.param('trip', function(req, res, next, id) {
 //                  User
 /***************************************************/
 
-// Register
 router.post('/register', function(req, res, next){
-  if(!req.body.username || !req.body.password){
-    return res.status(400).json({message: 'Por favor llene todos los campos'});
-  }
+    if(!req.body.username || !req.body.password){
+        return res.status(400).json({message: 'Por favor llene todos los campos'});
+    }
 
-  var user = new User();
+    User.findOne({ username: req.body.username }, function (err, user) {
+        if (err) return next(err);
+        if (user) {
+            return res.status(400).json({message: 'Lo sentimos. El nombre de usuario ya esta en uso. Intentelo otra vez'});  
+        } else{
+            var user = new User();
+            user.username = req.body.username;
+            user.setPassword(req.body.password);
 
-  user.username = req.body.username;
+            user.save(function (err){
+                if(err){
+                    return next(err); 
+                }
+                return res.json({token: user.generateJWT()});
+            });
 
-  user.setPassword(req.body.password)
+        }
+    });
 
-  user.save(function (err){
-    if(err){ return next(err); }
 
-    return res.json({token: user.generateJWT()})
-  });
 });
 
-// Login
 router.post('/login', function(req, res, next){
-  if(!req.body.username || !req.body.password){
-    return res.status(400).json({message: 'Por favor llene todos los campos'});
-  }
-
-  passport.authenticate('local', function(err, user, info){
-    if(err){ return next(err); }
-
-    if(user){
-      return res.json({token: user.generateJWT()});
-    } else {
-      return res.status(401).json(info);
+    if(!req.body.username || !req.body.password){
+        return res.status(400).json({message: 'Por favor llene todos los campos'});
     }
+
+    passport.authenticate('local', function(err, user, info){
+        if(err){ return next(err); }
+
+        if(user){
+            return res.json({token: user.generateJWT()});
+        } else {
+            return res.status(401).json(info);
+        }
   })(req, res, next);
 });
 
