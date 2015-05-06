@@ -14,7 +14,10 @@ module.exports = function(grunt) {
     },
     wiredep: {
       task: {
-        src: ['target/**/*.html']
+        src: ['views/**/*.ejs']
+      },
+      options : {
+       ignorePath : "../public" 
       }
     },
     compile: {
@@ -29,6 +32,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-wiredep');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify']);
+  //grunt.registerTask('default', ['uglify']);
+  //grunt.registerTask('default', ['compile']);
 
 };

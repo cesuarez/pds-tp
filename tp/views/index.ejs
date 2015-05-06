@@ -1,6 +1,7 @@
 <html>
     <head>
         <!-- bower:css -->
+        <link rel="stylesheet" href="/javascripts/lib/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
 
         <title>Viajes</title>
@@ -25,13 +26,15 @@
         <script src="/javascripts/controllers/nav_ctrl.js"></script>
         <script src="/javascripts/services/trips_factory.js"></script>
         <script src="/javascripts/services/authentication_factory.js"></script>
-    <!-- bower:js-->
-    <!-- endbower-->
+        <!-- bower:js-->
+        <script src="/javascripts/lib/jquery/dist/jquery.js"></script>
+        <script src="/javascripts/lib/angular/angular.js"></script>
+        <script src="/javascripts/lib/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="/javascripts/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <!-- endbower-->
     </head>
 
     <body ng-app="tripsApp">
-        <!-- bower:js-->
-        <!-- endbower-->
         <div ng-controller="NavCtrl">
             <nav class="navbar navbar-default pull-right">
                 <ul class="nav navbar-nav">
