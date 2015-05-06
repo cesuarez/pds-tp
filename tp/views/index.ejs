@@ -1,17 +1,12 @@
 <html>
     <head>
+        <title>Viajes</title>
+
         <!-- bower:css -->
         <link rel="stylesheet" href="/javascripts/lib/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
 
-        <title>Viajes</title>
-
-        <link rel="stylesheet" type="text/css" href="stylesheets/datetimepicker.css">
-
-        <script type="text/javascript" src="javascripts/angular.min.js"></script>
-        <script type="text/javascript" src="javascripts/moment.min.js"></script>
-        <script type="text/javascript" src="javascripts/datetimepicker.js"></script>
-
+        <!-- Controllers y Services de Angular nuestros -->
         <script src="/javascripts/angularApp.js"></script>
         <script src="/javascripts/controllers/home_ctrl.js"></script>
         <script src="/javascripts/controllers/trip_ctrl.js"></script>
@@ -19,12 +14,21 @@
         <script src="/javascripts/controllers/nav_ctrl.js"></script>
         <script src="/javascripts/services/trips_factory.js"></script>
         <script src="/javascripts/services/authentication_factory.js"></script>
+        
+        <!-- Bibliotecas para pasar a bower -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/datetimepicker.css">
+        <script type="text/javascript" src="javascripts/angular.min.js"></script>
+        <script type="text/javascript" src="javascripts/moment.min.js"></script>
+        <script type="text/javascript" src="javascripts/datetimepicker.js"></script>
+
         <!-- bower:js-->
         <script src="/javascripts/lib/jquery/dist/jquery.js"></script>
         <script src="/javascripts/lib/angular/angular.js"></script>
         <script src="/javascripts/lib/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="/javascripts/lib/bootstrap/dist/js/bootstrap.js"></script>
         <!-- endbower-->
+
+        <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
 
     <body ng-app="tripsApp">
