@@ -42,7 +42,7 @@ router.post('/trips', auth, function(req, res, next) {
 
 // Delete Trip
 router.delete('/trips/:trip', auth, function(req, res, next) {
-    Trip.findByIdAndRemove(req.param("trip"), function(err, data) {
+    Trip.findByIdAndRemove(req.params.trip, function(err, data) {
         if (err) { return next(err); }
 
         Trip.find({username:req.payload.username}, function(err, trips){
@@ -54,7 +54,7 @@ router.delete('/trips/:trip', auth, function(req, res, next) {
 
 // Get Trip
 router.get('/trips/:trip', function(req, res, next) {
-    Trip.findById(req.param("trip"), function (err, trip){
+    Trip.findById(req.params.trip, function (err, trip){
         if (err) { return next(err); }
         if (!trip) { return next(new Error('Viaje no encontrado')); }
 
