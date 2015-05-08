@@ -18,10 +18,11 @@ router.get('/', function(req, res, next) {
 /***************************************************/
 //                  Trip
 /***************************************************/
+//process.stdout.write("");
 
 // List Trips
-router.get('/trips', function(req, res, next) {
-    Trip.find(function(err, trips){
+router.get('/trips', auth, function(req, res, next) {
+    Trip.find({username:req.payload.username}, function(err, trips){
       if(err){ return next(err); }
       res.json(trips);
     });
@@ -31,7 +32,7 @@ router.get('/trips', function(req, res, next) {
 // Create Trip
 router.post('/trips', auth, function(req, res, next) {
     var trip = new Trip(req.body);
-    //trip.author = req.payload.username;
+    trip.username = req.payload.username;
 
     trip.save(function(err, trip){
       if(err){ return next(err); }
@@ -44,7 +45,7 @@ router.delete('/trips/:trip', auth, function(req, res, next) {
     Trip.findByIdAndRemove(req.param("trip"), function(err, data) {
         if (err) { return next(err); }
 
-        Trip.find(function(err, trips){
+        Trip.find({username:req.payload.username}, function(err, trips){
             if(err){ return next(err); }
             res.json(trips);
         });

@@ -13,21 +13,22 @@ angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($h
 	};
 
   	o.getAll = function() {
-	    return $http.get('/trips').success(function(data){
-	        angular.copy(data, o.trips);
+	    return $http.get('/trips', {headers: {Authorization: 'Bearer ' + auth.getToken()}}
+	    	).success(function(data){
+	        	angular.copy(data, o.trips);
 	    });
 	};
 
 	o.create = function(trip) {
-	    return $http.post('/trips', trip, {headers: {Authorization: 'Bearer ' + auth.getToken()}
-		}).success(function(data){
+	    return $http.post('/trips', trip, {headers: {Authorization: 'Bearer ' + auth.getToken()}}
+		).success(function(data){
 	    	o.trips.push(data);
 	    });
 	};
 
 	o.delete = function(id) {
-		return $http.delete('/trips/' + id, {headers: {Authorization: 'Bearer ' + auth.getToken()}
-		}).success(function(data){
+		return $http.delete('/trips/' + id, {headers: {Authorization: 'Bearer ' + auth.getToken()}}
+		).success(function(data){
 	        angular.copy(data, o.trips);
 	    });
 	}

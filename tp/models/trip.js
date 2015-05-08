@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var TripSchema = new Schema({
     name: String,
     initDate: Date,
-    endDate: Date
+    endDate: Date,
+    username: String
 });
 
 

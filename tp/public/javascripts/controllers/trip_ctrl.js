@@ -7,7 +7,7 @@ angular.module('tripsApp').controller('TripsCtrl',
     $scope.trip = trip;
 
     $scope.back = function(){
-        $location.url("");
+        $location.url("/home");
     }
 
 }]);

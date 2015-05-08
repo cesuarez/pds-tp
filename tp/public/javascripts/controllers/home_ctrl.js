@@ -24,8 +24,6 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', 'au
                 initDate: $scope.trip.initDate,
                 endDate: $scope.trip.endDate
             });
-            console.log($scope.trip.initDate);
-            console.log($scope.trip.endDate);
             $scope.resetTrip()
         }
     };
