@@ -29,7 +29,7 @@ router.get('/trips', auth, function(req, res, next) {
 });
 
 
-// Create Trip
+// Create Trip 
 router.post('/trips', auth, function(req, res, next) {
     var trip = new Trip(req.body);
     trip.username = req.payload.username;
