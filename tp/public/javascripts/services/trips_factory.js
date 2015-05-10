@@ -33,5 +33,13 @@ angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($h
 	    });
 	}
 
+	o.addCity = function(trip, city) {
+		return $http.post('/trips/' + trip._id + '/cities', city, 
+			{headers: {Authorization: 'Bearer ' + auth.getToken()}}
+		).success(function(data){
+			trip.cities.push(data);
+		});
+	}
+
   	return o;
 }]);

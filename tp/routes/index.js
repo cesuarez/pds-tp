@@ -3,8 +3,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var passport = require('passport');
 var Trip = mongoose.model('Trip');
-//var User = require('./../models/user.js');
 var User = mongoose.model('User');
+var City = mongoose.model('City');
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
@@ -29,7 +29,7 @@ router.get('/trips', auth, function(req, res, next) {
 });
 
 
-// Create Trip 
+// Create Trip
 router.post('/trips', auth, function(req, res, next) {
     var trip = new Trip(req.body);
     trip.username = req.payload.username;
@@ -58,14 +58,31 @@ router.get('/trips/:trip', function(req, res, next) {
         if (err) { return next(err); }
         if (!trip) { return next(new Error('Viaje no encontrado')); }
 
-        res.json(trip);
+        trip.populate('cities', function(err, trip) {
+            if (err) { return next(err); }
+            res.json(trip);
+        });
     });
-/*
-    req.post.populate('comments', function(err, post) {
-        if (err) { return next(err); }
-        res.json(post);
+});
+
+// Add City
+router.post('/trips/:trip/cities', auth, function(req, res, next) {
+    var city = new City(req.body);
+    city.save(function(err, city){
+        if(err){ return next(err); }
+
+        Trip.findById(req.params.trip, function (err, trip){
+            if (err) { return next(err); }
+            if (!trip) { return next(new Error('Viaje no encontrado')); }
+
+            trip.cities.push(city);
+            trip.save(function(err, trip) {
+                if(err){ return next(err);}
+
+                res.json(city);
+            });
+        });
     });
-*/
 });
 
 // Params

@@ -44,10 +44,10 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', 'au
 
     $scope.validName = function() {
         if (!$scope.trip.name){
-            $scope.nameErrors = "Ingrese un Nombre";
+            $scope.nameErrors = "Ingrese un nombre";
             return false;
         } else if ($scope.trips.filter(function(trip) {return trip.name == $scope.trip.name;}).length > 0) {
-            $scope.nameErrors = "El Nombre ya existe";
+            $scope.nameErrors = "El nombre ya existe";
             return false;
         } else {
             $scope.nameErrors = "";
