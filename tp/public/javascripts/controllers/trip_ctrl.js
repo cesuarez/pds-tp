@@ -30,7 +30,8 @@ angular.module('tripsApp').controller('TripsCtrl',
         if (!$scope.city.name){
             $scope.nameErrors = "Ingrese una ciudad";
             return false;
-        } else if ($scope.trip.cities[$scope.trip.cities.length-1].name == $scope.city.name) {
+        } else if ($scope.trip.cities.length > 0 &&
+        			$scope.trip.cities[$scope.trip.cities.length-1].name == $scope.city.name) {
             $scope.nameErrors = "Ciudad consecutiva repetida";
             return false;
         } else {
@@ -40,7 +41,6 @@ angular.module('tripsApp').controller('TripsCtrl',
     };
 
     $scope.validDays = function() {
-    	console.log($scope.city.days, parseInt($scope.city.days));
     	if (!$scope.city.days){
             $scope.daysErrors = "Ingrese una cantidad de dias";
             return false;

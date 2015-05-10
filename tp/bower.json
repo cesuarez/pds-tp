@@ -15,6 +15,7 @@
     "angular-ui-router": "~0.2.10",
     "bootstrap": "~3.3.4",
     "moment": "~2.9.0",
-    "angular-bootstrap-datetimepicker": "~0.3.12"
+    "angular-bootstrap-datetimepicker": "~0.3.12",
+    "angular-google-maps": "~2.1.0"
   }
 }

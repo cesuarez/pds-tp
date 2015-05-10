@@ -14,8 +14,9 @@
     	<div style="font-size:20px">
 	    	<span class="label label-Info"> {{$index+1}}</span>
 	    	<span>
-	    		{{city.name + ' - ' + city.days + ' dia' + (city.days > 1 ? 's' : '')}}
+	    		{{city.name}}
 	    	</span>
+	    	<span style="font-size:15px">{{'(' + city.days + ' dia' + (city.days > 1 ? 's' : '') + ')'}}</span>
     	</div>
     </ul>
 
