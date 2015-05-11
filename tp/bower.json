@@ -16,6 +16,7 @@
     "bootstrap": "~3.3.4",
     "moment": "~2.9.0",
     "angular-bootstrap-datetimepicker": "~0.3.12",
-    "ngmap": "~1.7.0"
+    "ngmap": "~1.7.0",
+    "fullcalendar": "~2.3.1"
   }
 }

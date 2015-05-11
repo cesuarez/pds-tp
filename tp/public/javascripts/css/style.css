@@ -23,3 +23,15 @@
     box-shadow: 7px 7px 5px #888888;
 }
 
+
+/* Calendaario */
+.fc-content {
+	height: 25;
+}
+.fc-title {
+	font-size: 15;
+	text-align: center;
+}
+.fc-time {
+	display: none;
+}

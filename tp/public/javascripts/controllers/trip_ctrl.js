@@ -7,9 +7,44 @@ angular.module('tripsApp').controller('TripsCtrl',
     $scope.trip = trip;
     $scope.city = {};
 
-    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-
     $scope.validCityForm = null;
+
+    $scope.showCalendar = false;
+
+
+    $('#calendar').fullCalendar({
+        header: {
+            left: '',
+            center: 'title',
+            right: 'prev,next'
+        },
+        lazyFetching: false,
+        defaultDate: $scope.trip.initDate,
+        editable: false
+        //events: $scope.events
+    });
+
+	$scope.updateEvents = function(){
+		var events = [];
+		var curDate = new Date($scope.trip.initDate)
+		$scope.trip.cities.forEach(function(city){
+			for (i = 0; i < city.days; i++) { 
+				var date = new Date(curDate).setHours(0,0,0,0);
+			   	events.push({
+			   		title: city.name,
+			   		start: date
+			   	});
+			   	curDate.setDate(curDate.getDate() + 1);
+			}
+		});
+        $('#calendar').fullCalendar( 'removeEvents');
+        $('#calendar').fullCalendar( 'addEventSource', events );
+	}
+	$scope.updateEvents();
+
+    $scope.toggleCalendar = function(){
+        $scope.showCalendar = !$scope.showCalendar;
+    }
 
     $scope.daysBetweenDates = function(date1, date2){
 	    // The number of milliseconds in one day
@@ -44,6 +79,7 @@ angular.module('tripsApp').controller('TripsCtrl',
         $scope.validCityForm = null;
         $scope.calculateDaysLeft();
         $scope.updateMap();
+        $scope.updateEvents();
     };
 
     $scope.addCity = function(){
@@ -61,14 +97,12 @@ angular.module('tripsApp').controller('TripsCtrl',
     };
 
     $scope.setCity = function(){
-    	console.log(this.getPlace());
     	var place = this.getPlace();
     	$scope.cityNameAuto = place.name;
     	$scope.city.location = [
     		place.geometry.location.k,
     		place.geometry.location.B
     	]
-    	console.log($scope.city.location);
     };
 
     $scope.eraseCityNameAuto = function(){
@@ -80,17 +114,8 @@ angular.module('tripsApp').controller('TripsCtrl',
     		accu.push(city.location);
     		return accu;
     	}, []);
-
-    	/*
-    	var bounds = new google.maps.LatLngBounds();
-    	$scope.tripLocations.forEach(function(location){
-    		bounds.extend(location);
-    	});
-		$scope.mapCenter = bounds.getCenter();
-		*/
     };
     $scope.updateMap();
-    console.log($scope.tripLocations);
 
     $scope.validName = function() {
         if (!$scope.cityNameAuto){
