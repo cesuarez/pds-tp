@@ -31,10 +31,6 @@ angular.module('tripsApp').controller('TripsCtrl',
     	$scope.daysLeft = $scope.daysBetween - $scope.trip.cities.reduce(function(accu, city) {
 		    return accu + city.days;
 		}, 0);
-
-		console.log("TOTAL: " + $scope.daysBetween);
-		console.log("LEFT: " + $scope.daysLeft);
-    	
     }
 
     $scope.daysBetween = $scope.daysBetweenDates(trip.initDate, trip.endDate);
@@ -44,16 +40,19 @@ angular.module('tripsApp').controller('TripsCtrl',
     $scope.resetCity = function(){
         $scope.city.name = '';
         $scope.city.days = null;
+        $scope.city.location = null;
         $scope.validCityForm = null;
         $scope.calculateDaysLeft();
+        $scope.updateMap();
     };
 
     $scope.addCity = function(){
         $scope.validateCityForm();
         if($scope.validCityForm) {
             tripsFactory.addCity($scope.trip, {
-                name: $scope.city.name,
-                days: $scope.city.days
+                name: $scope.cityNameAuto,
+                days: $scope.city.days,
+                location: $scope.city.location
             }).then(function() {
 		        $scope.resetCity();
 		    });
@@ -61,12 +60,44 @@ angular.module('tripsApp').controller('TripsCtrl',
         }
     };
 
+    $scope.setCity = function(){
+    	console.log(this.getPlace());
+    	var place = this.getPlace();
+    	$scope.cityNameAuto = place.name;
+    	$scope.city.location = [
+    		place.geometry.location.k,
+    		place.geometry.location.B
+    	]
+    	console.log($scope.city.location);
+    };
+
+    $scope.eraseCityNameAuto = function(){
+    	$scope.cityNameAuto = null;
+    };
+
+    $scope.updateMap = function(){
+    	$scope.tripLocations = $scope.trip.cities.reduce(function(accu, city){
+    		accu.push(city.location);
+    		return accu;
+    	}, []);
+
+    	/*
+    	var bounds = new google.maps.LatLngBounds();
+    	$scope.tripLocations.forEach(function(location){
+    		bounds.extend(location);
+    	});
+		$scope.mapCenter = bounds.getCenter();
+		*/
+    };
+    $scope.updateMap();
+    console.log($scope.tripLocations);
+
     $scope.validName = function() {
-        if (!$scope.city.name){
-            $scope.nameErrors = "Ingrese una ciudad";
+        if (!$scope.cityNameAuto){
+            $scope.nameErrors = "Ingrese una ciudad válida";
             return false;
         } else if ($scope.trip.cities.length > 0 &&
-        			$scope.trip.cities[$scope.trip.cities.length-1].name == $scope.city.name) {
+        			$scope.trip.cities[$scope.trip.cities.length-1].name == $scope.cityNameAuto) {
             $scope.nameErrors = "Ciudad consecutiva repetida";
             return false;
         } else {

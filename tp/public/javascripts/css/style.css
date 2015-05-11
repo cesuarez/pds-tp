@@ -14,7 +14,12 @@
 .unstyled::-webkit-calendar-picker-indicator {display: none; -webkit-appearance: none;}
 .unstyled::-webkit-clear-button {-webkit-appearance: none; margin: 0;}
 
-/* Angular Google Maps*/
-.angular-google-map-container {
+/* ng-Map */
+.ng-map {
 	height: 400px;
+	border-style: solid;
+    border-width: 1px;
+    border-color: #0e5168;
+    box-shadow: 7px 7px 5px #888888;
 }
+

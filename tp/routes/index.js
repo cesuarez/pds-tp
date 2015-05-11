@@ -68,6 +68,8 @@ router.get('/trips/:trip', function(req, res, next) {
 // Add City
 router.post('/trips/:trip/cities', auth, function(req, res, next) {
     var city = new City(req.body);
+    process.stdout.write("CITY: " + city);
+
     city.save(function(err, city){
         if(err){ return next(err); }
 

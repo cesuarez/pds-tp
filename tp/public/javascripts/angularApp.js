@@ -1,5 +1,5 @@
 var app = angular.module('tripsApp', 
-    ['ui.router', 'ui.bootstrap.datetimepicker', 'uiGmapgoogle-maps']
+    ['ui.router', 'ui.bootstrap.datetimepicker', 'ngMap']
 );
 
 app.config([
