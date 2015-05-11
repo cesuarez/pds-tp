@@ -5,7 +5,8 @@ var TripSchema = new Schema({
     name: String,
     initDate: Date,
     endDate: Date,
-    username: String
+    username: String,
+    cities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'City' }]
 });
 
 

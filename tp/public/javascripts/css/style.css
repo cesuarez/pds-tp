@@ -1,0 +1,37 @@
+/* Validaciones */
+.error-label {
+    padding-top:6px; 
+}
+
+/* cursor de botones */
+.glyphicon-remove { 
+	cursor:pointer 
+} 
+
+/* Estilo de inputs de tipo Date */
+.unstyled::-webkit-inner-spin-button,
+.unstyled::-webkit-outer-spin-button,
+.unstyled::-webkit-calendar-picker-indicator {display: none; -webkit-appearance: none;}
+.unstyled::-webkit-clear-button {-webkit-appearance: none; margin: 0;}
+
+/* ng-Map */
+.ng-map {
+	height: 300px;
+	border-style: solid;
+    border-width: 1px;
+    border-color: #0e5168;
+    box-shadow: 7px 7px 5px #888888;
+}
+
+
+/* Calendaario */
+.fc-content {
+	height: 25;
+}
+.fc-title {
+	font-size: 15;
+	text-align: center;
+}
+.fc-time {
+	display: none;
+}

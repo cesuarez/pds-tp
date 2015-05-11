@@ -1,12 +1,3 @@
-<style> 
-.glyphicon-remove { cursor:pointer } 
-.alert-danger {padding-top:6px; width:350px; box-shadow:none; margin-bottom:0px;}
-.unstyled::-webkit-inner-spin-button,
-.unstyled::-webkit-outer-spin-button,
-.unstyled::-webkit-calendar-picker-indicator {display: none; -webkit-appearance: none;}
-.unstyled::-webkit-clear-button {-webkit-appearance: none; margin: 0;}
-</style>
-
 <div ng-show="isLoggedIn">
 
 <div class="page-header">
@@ -34,11 +25,11 @@
         <!-- Name -->
         <div class="form-group">
             <div class="{{nameErrors ? 'has-error' : (validTripForm === null ? '' : 'has-success')}} col-md-4">
-                <input class="form-control" type="text" name="name" style="width: 250px" placeholder="Nombre"
+                <input class="form-control" type="text" name="name" placeholder="Nombre"
                        ng-model="trip.name"></input>
             </div>
-            <div class="col-md-8">
-                <span class="alert alert-danger form-control" ng-show="nameErrors"
+            <div class="col-md-5 error-label ">
+                <span ng-show="nameErrors"
                       style="color:red" ng-bind="nameErrors">
                 </span>
             </div>
@@ -48,7 +39,7 @@
         <div class="form-group">
             <label class="col-md-12">Fecha de Inicio:</label>
             <div class="{{initDateErrors ? 'has-error' : (validTripForm === null ? '' : 'has-success')}} col-md-4">
-                <div style="width: 250px"  class="dropdown">
+                <div class="dropdown">
                     <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="">    
                         <div class="input-group">
                           <input type="date" name="initDate" class="unstyled form-control" ng-model="trip.initDate">
@@ -62,8 +53,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-8">
-                <span class="alert alert-danger form-control" ng-show="initDateErrors"
+            <div class="col-md-5 error-label">
+                <span ng-show="initDateErrors"
                       style="color:red" ng-bind="initDateErrors">
                 </span>
             </div>
@@ -73,7 +64,7 @@
         <div class="form-group">
             <label class="col-md-12">Fecha de Regreso:</label>
             <div class="{{endDateErrors ? 'has-error' : (validTripForm === null ? '' : 'has-success')}} col-md-4">
-                <div style="width: 250px"  class="dropdown">
+                <div class="dropdown">
                     <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="">    
                         <div class="input-group">
                           <input type="date" name="endDate" class="unstyled form-control" ng-model="trip.endDate">
@@ -87,8 +78,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-8">
-                <span class="alert alert-danger form-control" ng-show="endDateErrors" 
+            <div class="col-md-5 error-label">
+                <span ng-show="endDateErrors" 
                       style="color:red" ng-bind="endDateErrors">
                 </span>
             </div>
@@ -115,7 +106,7 @@
             </div>
             <div class="modal-footer">
                 <a href="" class="btn btn-danger" ng-click="removeTrip()">Eliminar</a>
-                <a href="" class="btn" ng-click="showDeletePopup(false)">Cancelar</a>
+                <a href="" class="btn btn-default" ng-click="showDeletePopup(false)">Cancelar</a>
             </div>
         </div>
     </div>
