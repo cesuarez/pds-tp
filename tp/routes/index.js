@@ -68,7 +68,6 @@ router.get('/trips/:trip', function(req, res, next) {
 // Add City
 router.post('/trips/:trip/cities', auth, function(req, res, next) {
     var city = new City(req.body);
-    process.stdout.write("CITY: " + city);
 
     city.save(function(err, city){
         if(err){ return next(err); }
@@ -86,6 +85,23 @@ router.post('/trips/:trip/cities', auth, function(req, res, next) {
         });
     });
 });
+
+// Delete City
+router.delete('/trips/:trip/cities/:city', auth, function(req, res, next) {
+    City.findByIdAndRemove(req.params.city, function(err, data) {
+        if (err) { return next(err); }
+        Trip.findById(req.params.trip, function (err, trip){
+            if (err) { return next(err); }
+            if (!trip) { return next(new Error('Viaje no encontrado')); }
+           
+            trip.populate('cities', function(err, trip) {
+                if (err) { return next(err); }
+                res.json(trip.cities);
+            });
+        });
+    });
+});
+
 
 // Params
 /*

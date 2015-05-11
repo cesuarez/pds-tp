@@ -5,8 +5,6 @@
     <span style="color:grey"> {{trip.initDate | date : 'shortDate'}} al {{trip.endDate | date : 'shortDate'}}</span>
 </div>
 
-<!-- <div class="row">&nbsp;</div> -->
-
 <h3>Ciudades</h3>
 
 <div class="form-group">
@@ -19,6 +17,7 @@
 			    		{{city.name}}
 			    	</span>
 			    	<span style="font-size:15px">{{'(' + city.days + ' dia' + (city.days > 1 ? 's' : '') + ')'}}</span>
+		    		<span class="btn btn-danger glyphicon glyphicon-remove" ng-click="prepareForDeleteCity(city._id)"></span>
 		    	</div>
 		    </ul>
 		</div>
@@ -32,16 +31,12 @@
 			<shape name="polyline" path="{{tripLocations}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2">
      		</shape>
 		</map>
-<!--
-		<ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
--->
 	</div>
 
 </div>
 
 <div class="col-md-12">
-	<form style="padding-top:30px" class="form-horizontal" ng-submit="addCity()"
-		  name="cityForm" style="margin-top:30px;">
+	<form style="padding-top:30px" class="form-horizontal" name="cityForm" style="margin-top:30px;">
 	    <h4>Agregar una Ciudad</h4>
 
 	    <div class="form-group">
@@ -50,10 +45,6 @@
 		            <input class="form-control" on-place-changed="setCity()" types="['geocode']" 
 		            ng-model="city.name" ng-change="eraseCityNameAuto()" places-auto-complete placeholder="Nombre" autocomplete="on">
 					</input>
-	<!--
-		            <input class="form-control" type="text" name="name" placeholder="Nombre"
-		                   ng-model="city.name"></input>
-	-->
 		        </div>
 		        <div>
 		            <span ng-show="nameErrors" style="color:red" ng-bind="nameErrors"></span>
@@ -74,16 +65,36 @@
 	    	
 	    </div>
 	    
-		<button ng-disabled="!(daysLeft > 0)" type="submit" class="btn btn-primary"> Agregar </button>
-
 	</form>
 </div>
 
 <div class="col-md-12">
+	<button ng-disabled="!(daysLeft > 0)" ng-click="addCity()" class="btn btn-primary"> Agregar </button>
 	<button ng-click="toggleCalendar()" class="btn btn-danger"> Calendario </button>
 	<button class="btn btn-default" ng-click="back()"> Volver </button>
 </div>
 
 <div ng-class="(showCalendar ? '' : 'hidden')" class="col-md-12" id='calendar' ng-model='events'></div>
+
+<div class="modal-backdrop fade in" ng-show="displayCityDeletePopup"></div>
+
+<div class="alert alert-block alert-error notification fade in" ng-show="displayCityDeletePopup" id="confirm-delete-city"  
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="position: fixed; top:30%; left:27%; z-index: 1500;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+            </div>
+            <div class="modal-body">
+                <span>¿Está seguro que quiere eliminar la ciudad?</span>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="btn btn-danger" ng-click="removeCity()">Eliminar</a>
+                <a href="" class="btn btn-default" ng-click="showDeletePopupCity(false)">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>

@@ -41,5 +41,13 @@ angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($h
 		});
 	}
 
+
+	o.deleteCity = function(trip, city_id ) {
+		return $http.delete('/trips/' + trip._id + '/cities/' + city_id, {headers: {Authorization: 'Bearer ' + auth.getToken()}}
+		).success(function(data){
+	        angular.copy(data, trip.cities);
+	    });
+	}
+
   	return o;
 }]);
