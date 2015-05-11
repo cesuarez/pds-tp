@@ -1,18 +1,20 @@
-.alert-danger {
-    padding-top:6px; 
-    box-shadow:none; 
-    margin-bottom:0px;
-}
-
+/* Validaciones */
 .error-label {
     padding-top:6px; 
 }
 
+/* cursor de botones */
 .glyphicon-remove { 
 	cursor:pointer 
 } 
 
+/* Estilo de inputs de tipo Date */
 .unstyled::-webkit-inner-spin-button,
 .unstyled::-webkit-outer-spin-button,
 .unstyled::-webkit-calendar-picker-indicator {display: none; -webkit-appearance: none;}
 .unstyled::-webkit-clear-button {-webkit-appearance: none; margin: 0;}
+
+/* Angular Google Maps*/
+.angular-google-map-container {
+	height: 400px;
+}

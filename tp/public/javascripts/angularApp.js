@@ -1,4 +1,6 @@
-var app = angular.module('tripsApp', ['ui.router', 'ui.bootstrap.datetimepicker']);
+var app = angular.module('tripsApp', 
+    ['ui.router', 'ui.bootstrap.datetimepicker', 'uiGmapgoogle-maps']
+);
 
 app.config([
 '$stateProvider',

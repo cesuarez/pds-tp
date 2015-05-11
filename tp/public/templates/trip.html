@@ -9,22 +9,29 @@
 
 <h3>Ciudades</h3>
 
-<div ng-show="trip.cities.length > 0" ng-repeat="city in trip.cities">
-    <ul class="row">
-    	<div style="font-size:20px">
-	    	<span class="label label-Info"> {{$index+1}}</span>
-	    	<span>
-	    		{{city.name}}
-	    	</span>
-	    	<span style="font-size:15px">{{'(' + city.days + ' dia' + (city.days > 1 ? 's' : '') + ')'}}</span>
-    	</div>
-    </ul>
+<div class="form-group">
+	<div class="col-md-6">
+		<div  ng-show="trip.cities.length > 0" ng-repeat="city in trip.cities">
+		    <ul class="row">
+		    	<div style="font-size:20px">
+			    	<span class="label label-Info"> {{$index+1}}</span>
+			    	<span>
+			    		{{city.name}}
+			    	</span>
+			    	<span style="font-size:15px">{{'(' + city.days + ' dia' + (city.days > 1 ? 's' : '') + ')'}}</span>
+		    	</div>
+		    </ul>
+		</div> 
+		<span ng-hide="trip.cities.length > 0">
+		    No hay ciudades agregadas
+		</span>
+	</div>
 
-</div> 
+	<div class="col-md-6">
+		<ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+	</div>
+</div>
 
-<span ng-hide="trip.cities.length > 0">
-    No hay ciudades agregadas
-</span>
 
 <form class="form-horizontal" ng-submit="addCity()" name="cityForm" style="margin-top:30px;">
     <h4>Agregar una Ciudad</h4>
@@ -42,7 +49,7 @@
     </div>
 
 	<div class="form-group">
-    	<div class="col-md-3">
+    	<div class="col-md-4">
 	        <div class="{{daysErrors ? 'has-error' : (validCityForm === null ? '' : 'has-success')}}">
 	            <input class="form-control" type="text" name="days" placeholder="Dias"
 	                   ng-model="city.days"></input>
@@ -52,7 +59,7 @@
 		    </div>
     	</div>
     	<div class="col-md-2">
-    		<button type="submit" class="btn btn-primary"> Agregar </button>
+    		<button ng-disabled="!(daysLeft > 0)" type="submit" class="btn btn-primary"> Agregar </button>
     	</div>
     </div>
     
