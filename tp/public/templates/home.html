@@ -3,13 +3,22 @@
 <div class="page-header">
     <h1>Viajes</h1>
 </div>
-
-<div ng-show="trips.length > 0" ng-repeat="trip in trips | orderBy: 'initDate'">
-    <ul class="row">
-        <a class="col-md-3" href="#/trips/{{trip._id}}" style="font-size:20px"> {{trip.name}} </a>
-        <span class="btn btn-danger glyphicon glyphicon-remove" ng-click="prepareForDelete(trip._id)"></span>
-    </ul>
-</div> 
+<!--class="btn-circle btn btn-danger glyphicon glyphicon-remove"-->
+<ul class="list-group">
+    <div ng-show="trips.length > 0" ng-repeat="trip in trips | orderBy: 'initDate'">
+        <li class="list-group-item">
+            <div class="col-md-1">
+                <input class="delete_button" type="image" src="images/delete_button.png"  
+                      ng-click="prepareForDelete(trip._id)"></span>
+            </div>
+            <a href="#/trips/{{trip._id}}" style="text-decoration: none;"> 
+                <div style="font-size:20px; color:black;">
+                    {{trip.name}}
+                </div>
+            </a>
+        </li>
+    </div> 
+</ul>
 
 <span ng-hide="trips.length > 0">
     No hay viajes creados
