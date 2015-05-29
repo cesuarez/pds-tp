@@ -137,6 +137,20 @@ angular.module('tripsApp').controller('TripsCtrl',
         $scope.cityNameAuto = null;
     };
 
+    $scope.mapCenter = function(){
+        var lowestX = 0
+        var highestX = 0
+        var lowestY = 0
+        var highestY = 0
+        $scope.tripLocations.forEach(function(location){
+            lowestX = (location[0] < lowestX) ? location[0] : lowestX;
+            highestX = (location[0] > highestX) ? location[0] : lowestX;
+            lowestY = (location[1] < lowestY) ? location[1] : lowestY;
+            highestY = (location[1] > highestY) ? location[1] : lowestY;
+        });
+        return [((lowestX+highestX)/2).toString(), ((lowestY+highestY)/2).toString()];
+    }
+
     $scope.updateMap = function(){
         $scope.tripLocations = $scope.trip.cities.reduce(function(accu, city){
             accu.push(city.location);
