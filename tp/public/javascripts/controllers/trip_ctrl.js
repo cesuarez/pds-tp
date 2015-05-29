@@ -125,10 +125,11 @@ angular.module('tripsApp').controller('TripsCtrl',
 
     $scope.setCity = function(){
         var place = this.getPlace();
+        console.log(place);
         $scope.cityNameAuto = place.name;
         $scope.city.location = [
             place.geometry.location.k,
-            place.geometry.location.B
+            place.geometry.location.D
         ]
     };
 

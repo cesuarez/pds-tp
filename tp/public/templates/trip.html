@@ -9,18 +9,20 @@
 
 <div class="form-group">
 	<div class="col-md-7">
-		<div ng-show="trip.cities.length > 0" ng-repeat="city in trip.cities">
-		    	<div class="col-md-10" style="margin-top:8px; font-size:20px;">
-			    	<span class="label label-Info"> {{$index+1}}</span>
-			    	<span>
-			    		{{city.name}}
-			    	</span>
-			    	<span style="font-size:15px">{{'(' + city.days + ' dia' + (city.days > 1 ? 's' : '') + ')'}}</span>
-		    	</div>
-		    	<div class="col-md-2" style="margin-top:5px">
-		    		<span class="btn btn-danger glyphicon glyphicon-remove" ng-click="prepareForDeleteCity(city._id)"></span>
-		    	</div>
-		</div>
+		<ul class="list-group">
+			<div ng-show="trip.cities.length > 0" ng-repeat="city in trip.cities">
+				<li float="left" class="list-group-item">
+			    	<div style="padding-left:0px" class="col-md-1">
+		                <input class="delete_button" type="image" src="images/delete_button.png"  
+		                      ng-click="prepareForDeleteCity(city._id)"></span>
+		            </div>
+			    	<div style="font-size:20px;">
+				    	<span> {{city.name}} </span>
+				    	<span style="font-size:15px">{{'(' + city.days + ')'}}</span>
+			    	</div>
+		        </li>
+			</div>
+		</ul>
 
 		<div ng-hide="trip.cities.length > 0">
 			<span class="form-group"> No hay ciudades agregadas </span>
