@@ -1,8 +1,6 @@
-angular.module('tripsApp').controller('TripsCtrl', 
-    ['$scope', '$stateParams', 'tripsFactory', 'trip', '$location', 'auth', function(
-    $scope, $stateParams, tripsFactory, trip, $location, auth){
-
-    $scope.isLoggedIn = auth.isLoggedIn();
+angular.module('tripsApp').controller('TripCtrl', 
+    ['$scope', 'tripsFactory', 'trip', '$location', function(
+    $scope, tripsFactory, trip, $location){
 
     $scope.trip = trip;
     $scope.city = {};

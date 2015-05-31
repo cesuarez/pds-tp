@@ -27,7 +27,7 @@ function($stateProvider, $urlRouterProvider) {
     .state('trip', {
         url: '/trips/{id}',
         templateUrl: '/templates/trip.html',
-        controller: 'TripsCtrl',
+        controller: 'TripCtrl',
         resolve: {
             trip: ['$stateParams', 'tripsFactory', function($stateParams, tripsFactory) {
                 return tripsFactory.get($stateParams.id);

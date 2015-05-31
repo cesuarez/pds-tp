@@ -1,7 +1,5 @@
-angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', 'auth', 
-    function($scope, tripsFactory, auth){
-
-    $scope.isLoggedIn = auth.isLoggedIn();
+angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', 
+    function($scope, tripsFactory){
 
     $scope.trips = tripsFactory.trips;
 
