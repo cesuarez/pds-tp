@@ -117,47 +117,122 @@ angular.module('tripsApp').controller('TripsCtrl',
     $scope.prepareForDeleteCity = function(city_id){
         $scope.cityToRemove = city_id;
         $scope.showDeletePopupCity(true);
-    }
+    };
 
     $scope.showDeletePopupCity = function(bool) {
         $scope.displayCityDeletePopup = bool;
-    }
+    };
+
+    $scope.createLocation = function(point){
+        var pointKeys = Object.keys(point);
+        return [ point[pointKeys[0]], point[pointKeys[1]] ]
+    };
 
     $scope.setCity = function(){
         var place = this.getPlace();
         console.log(place);
         $scope.cityNameAuto = place.name;
-        $scope.city.location = [
-            place.geometry.location.k,
-            place.geometry.location.D
-        ]
+        $scope.city.location = $scope.createLocation(place.geometry.location);
     };
 
     $scope.eraseCityNameAuto = function(){
         $scope.cityNameAuto = null;
     };
+    
 
-    $scope.mapCenter = function(){
-        var lowestX = 0
-        var highestX = 0
-        var lowestY = 0
-        var highestY = 0
-        $scope.tripLocations.forEach(function(location){
-            lowestX = (location[0] < lowestX) ? location[0] : lowestX;
-            highestX = (location[0] > highestX) ? location[0] : lowestX;
-            lowestY = (location[1] < lowestY) ? location[1] : lowestY;
-            highestY = (location[1] > highestY) ? location[1] : lowestY;
-        });
-        return [((lowestX+highestX)/2).toString(), ((lowestY+highestY)/2).toString()];
-    }
+    ////////////////////////////////
+    // GOOGLE MAPS
+    ////////////////////////////////
 
-    $scope.updateMap = function(){
+    $scope.maxZoom = 7;
+
+    $scope.updatePolyline = function(){
         $scope.tripLocations = $scope.trip.cities.reduce(function(accu, city){
-            accu.push(city.location);
+            accu.push(new google.maps.LatLng(city.location[0], city.location[1]));
             return accu;
         }, []);
+
+        if ($scope.polyline) $scope.polyline.setMap(null);
+
+        $scope.polyline = new google.maps.Polyline({
+            path: $scope.tripLocations,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+        });
+
+        $scope.polyline.setMap($scope.map);
+    };
+
+    $scope.markers = [];
+
+    $scope.updateMarkers = function(){
+        // Si hay los borro
+        if ($scope.markers) {
+            $scope.markers.forEach(function(marker){
+                marker.setMap(null);
+            });
+            $scope.markers = [];  
+        } 
+
+        // Los creo denuevo
+        $scope.trip.cities.forEach(function(city){
+            var point = new google.maps.LatLng(city.location[0], city.location[1]);
+            var marker = new google.maps.Marker({
+                position: point,
+                title:city.name,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 5
+                },
+                map: $scope.map
+            });
+            $scope.markers.push(marker);
+        });
+
+    };
+
+    $scope.updateMapCenter = function(){
+        var bounds = new google.maps.LatLngBounds();
+
+        $scope.tripLocations.forEach(function(point){
+            bounds.extend( point );
+        });
+
+
+        if ($scope.tripLocations.length > 1) {
+            $scope.map.fitBounds(bounds);
+        } else {
+            $scope.map.setCenter(bounds.getCenter());
+            $scope.map.setZoom($scope.maxZoom);
+        }
+
+        /*
+        $scope.map.fitBounds(bound);
+        var listener = google.maps.event.addListenerOnce($scope.map, 'zoom_changed', function() { 
+            if ($scope.map.getZoom() > $scope.maxZoom) $scope.map.setZoom($scope.maxZoom); 
+        });*/
+    };
+
+    var mapOptions = {
+        zoom: 1,
+        center: new google.maps.LatLng(0, 0)
+    };
+
+    $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    $scope.updateMap = function(){
+        $scope.updatePolyline();
+        $scope.updateMapCenter();
+        $scope.updateMarkers();
     };
     $scope.updateMap();
+
+    
+    ////////////////////////////////
+    // VALIDATIONS 
+    ////////////////////////////////
 
     $scope.validName = function() {
         if (!$scope.cityNameAuto){
