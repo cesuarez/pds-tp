@@ -152,8 +152,10 @@ angular.module('tripsApp').controller('TripsCtrl',
             return accu;
         }, []);
 
+        // Si hay lo borro
         if ($scope.polyline) $scope.polyline.setMap(null);
 
+        // Lo creo denuevo
         $scope.polyline = new google.maps.Polyline({
             path: $scope.tripLocations,
             geodesic: true,
@@ -199,7 +201,6 @@ angular.module('tripsApp').controller('TripsCtrl',
         $scope.tripLocations.forEach(function(point){
             bounds.extend( point );
         });
-
 
         if ($scope.tripLocations.length > 1) {
             $scope.map.fitBounds(bounds);
