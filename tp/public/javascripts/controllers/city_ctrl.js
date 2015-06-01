@@ -13,6 +13,7 @@ angular.module('tripsApp').controller('CityCtrl',
 
 	$scope.trip = trip;
 	$scope.city = city;
+	console.log($scope.city.places);
 	$scope.hotels = [{name: "Seleccione un Hotel", place_id: "-1"}];
 	if ($scope.city.hotel){
 		$scope.tempHotel = clone($scope.city.hotel);
@@ -94,7 +95,7 @@ angular.module('tripsApp').controller('CityCtrl',
 	// Search for Hotels Nearby
 	var request = {
 	    location: $scope.cityLocation,
-	    radius: '3000',
+	    radius: '2500',
 	    types: ['lodging']
 	};
 	$scope.service = new google.maps.places.PlacesService($scope.map);
@@ -145,6 +146,88 @@ angular.module('tripsApp').controller('CityCtrl',
 			});
 		});
 	}
+
+	///////////////////////
+	// DIEGO
+	///////////////////////
+	
+    $scope.allPlaces = function() {
+
+        var cityLocation = new google.maps.LatLng($scope.city.location[0], $scope.city.location[1]);
+        var request = {
+            location: cityLocation,
+            radius: '2500',
+        };
+        var service = new google.maps.places.PlacesService($scope.map);
+        service.nearbySearch(request, $scope.callbackAll);
+     };
+
+/*
+    $scope.listPlaces = function(coords) {
+
+        var cityLocation = new google.maps.LatLng(coords[0], coords[1]);
+        var request = {
+            location: cityLocation,
+            radius: 500,
+            types: ['store']
+        };
+        var service = new google.maps.places.PlacesService($scope.map);
+        service.nearbySearch(request, $scope.callbackList);
+     };
+*/
+
+	$scope.markers = [];
+    $scope.callbackAll = function(results, status) {
+    	console.log($scope.markers);
+      	if ($scope.markers.length > 0){
+			$scope.markers.forEach(function(marker){
+				marker.setMap(null);
+			});
+			$scope.markers = [];
+      	} else {
+      		if (status == google.maps.places.PlacesServiceStatus.OK) {
+      			results.forEach(function(place){
+		        	if (place.types.filter(function(type) {return type === "lodging"}).length == 0){
+		            	$scope.createMarker(place);
+		        	}
+		        });
+      		}
+      	}
+    };
+/*
+    $scope.callbackList = function(results, status) {
+      $scope.listPlaces = results;
+    };
+*/
+	$scope.createMarker = function(place) {
+      	var placeLoc = place.geometry.location;
+      	var marker = new google.maps.Marker({
+	        map: $scope.map,
+	        position: place.geometry.location,
+	        title: place.name,
+	        icon: {
+			    url: place.icon, // url
+			    scaledSize: new google.maps.Size(30, 30), // scaled size
+			    origin: new google.maps.Point(0,0), // origin
+			    anchor: new google.maps.Point(0, 0) // anchor
+			}
+      	});
+      	$scope.markers.push(marker);
+
+        google.maps.event.addListener(marker, 'click', function() {
+			console.log(place);
+        	if ($scope.city.places.filter(function(place) {return place.title == marker.title;}).length == 0){
+			  	tripsFactory.addPlace($scope.trip, $scope.city, {
+			  		title: marker.title,
+			  		location: $scope.createLocation(marker.position)
+			  	});
+        	}
+		});
+    };
+
+    $scope.deletePlace = function(placeId){
+		tripsFactory.deletePlace(trip, city, placeId);
+    }
 
 	$scope.back = function(){
         $location.url("/trips/" + $stateParams.trip_id); 

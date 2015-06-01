@@ -6,6 +6,7 @@ var Trip = mongoose.model('Trip');
 var User = mongoose.model('User');
 var City = mongoose.model('City');
 var Hotel = mongoose.model('Hotel');
+var Place = mongoose.model('Place');
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
@@ -89,14 +90,15 @@ router.post('/trips/:trip/cities', auth, function(req, res, next) {
 
 // Get City
 router.get('/trips/:trip/cities/:city', function(req, res, next) {
-    City.findById(req.params.city, function (err, city){
+    City.findById(req.params.city)
+    .populate('hotel')
+    .populate('places')
+    .exec(function (err, city) {
         if (err) { return next(err); }
-        if (!city) { return next(new Error('Ciudad no encontrada')); }
 
-        city.populate('hotel', function(err, city) {
-            if (err) { return next(err); }
-            res.json(city);
-        });
+        process.stdout.write("CITY POPULADA: " + city);
+
+        res.json(city);
     });
 });
 
@@ -149,6 +151,44 @@ router.post('/trips/:trip/cities/:city/hotels/:hotel', auth, function(req, res, 
     });
 });
 
+
+// Add Place
+router.post('/trips/:trip/cities/:city/places', auth, function(req, res, next) {
+    var place = new Place(req.body);
+
+    place.save(function(err, place){
+        if(err){ return next(err); }
+
+        City.findById(req.params.city, function (err, city){
+            if (err) { return next(err); }
+            if (!city) { return next(new Error('Ciudad no encontrada')); }
+
+            city.places.push(place);
+         
+            city.save(function(err, city) {
+                if(err){ return next(err);}
+                process.stdout.write("CITY CON PLACE: " + city);
+                res.json(place);
+            });
+        });
+    });
+});
+
+// Delete Place
+router.delete('/trips/:trip/cities/:city/places/:place', auth, function(req, res, next) {
+    Place.findByIdAndRemove(req.params.place, function(err, data) {
+        if (err) { return next(err); }
+        City.findById(req.params.city, function (err, city){
+            if (err) { return next(err); }
+            if (!city) { return next(new Error('Ciudad no encontrada')); }
+           
+            city.populate('places', function(err, city) {
+                if (err) { return next(err); }
+                res.json(city.places);
+            });
+        });
+    });
+});
 
 
 // Params

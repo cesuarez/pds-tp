@@ -11,6 +11,7 @@ require('./models/trip');
 require('./models/user');
 require('./models/city');
 require('./models/hotel');
+require('./models/place');
 require('./config/passport');
 
 var routes = require('./routes/index');

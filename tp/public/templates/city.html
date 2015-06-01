@@ -47,6 +47,34 @@
     		</button>
     	</div>
 
+    	<h3>Puntos de interes</h3>
+
+
+		<ul class="list-group">
+			<div ng-show="city.places.length > 0" ng-repeat="place in city.places">
+				<li float="left" class="list-group-item">
+			    	<div style="padding-left:0px" class="col-md-1">
+		                <input class="delete_button" type="image" src="images/delete_button.png"  
+		                       ng-click="deletePlace(place._id)"></input>
+		            </div>
+		    		<span style="font-size:20px;"> 
+		    			{{place.title}}
+		    		</span>
+		        </li>
+			</div>
+		</ul>
+
+		<span ng-hide="city.places.length> 0">
+		    No hay puntos de interes agregados
+		</span>
+
+		<div class="form-group">
+    		<button ng-click="allPlaces()" class="btn btn-primary"> 
+    			Mostrar POIs
+    		</button>
+    	</div>
+    </div> 
+
 	</div>
 
 	<div class="col-md-6">
