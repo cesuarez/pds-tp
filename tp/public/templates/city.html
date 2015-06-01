@@ -7,10 +7,10 @@
 <div class="form-group">
 
 	<div class="col-md-6">
-		<h3>Hospedaje</h3>
+		<h3 class="hotel-property">Hospedaje</h3>
 
 	    <div class="form-group">
-	    	<select ng-model="hotelId" class="form-control" ng-change="hotelChanged()">
+	    	<select id="hotelsSelect" ng-model="tempHotel.place_id" class="form-control" ng-change="hotelChanged()">
 	    		<option ng-repeat="hotelElem in hotels"
 			            value="{{hotelElem.place_id}}">
 			        {{hotelElem.name}}
@@ -18,24 +18,31 @@
 	    	</select>
 	    </div>
 
-	    <div class="form-group">
-	    	<span class="hotel-property">Dir:</span> <span>{{tempHotel.formatted_address}}</span>
-	    </div>
+		<div ng-if="tempHotel.place_id !== '-1'">
+			<div class="form-group">
+		    	<h4 class="hotel-property">{{tempHotel.name}}</h4>
+		    </div>
+
+		    <div class="form-group">
+		    	<span class="hotel-property">Dir:</span> <span>{{tempHotel.formatted_address}}</span>
+		    </div>
+
+		    <div class="form-group">
+		    	<span class="hotel-property">Tel:</span> <span>{{tempHotel.formatted_phone_number}}</span>
+		    </div>
+
+		    <div class="form-group">
+		    	<span  class="hotel-property">Calificacion:</span> <span> {{tempHotel.rating}}/5</span>
+		    </div>
+
+		    <div class="form-group">
+		    	<span  class="hotel-property">Página Web:</span> 
+		    	<span><a href="{{tempHotel.website}}" target="_blank">Link</a></span>
+		    </div>
+		</div>
 
 	    <div class="form-group">
-	    	<span class="hotel-property">Tel:</span> <span>{{tempHotel.formatted_phone_number}}</span>
-	    </div>
-
-	    <div class="form-group">
-	    	<span  class="hotel-property">Calificacion:</span> <span> {{tempHotel.rating}}/5</span>
-	    </div>
-
-	    <div class="form-group">
-	    	<span  class="hotel-property">Página Web:</span> <span><a href="{{tempHotel.website}}">Link</a></span>
-	    </div>
-
-	    <div class="form-group">
-    		<button ng-disabled="(hotelId === '-1') || (city.hotel.place_id === hotelId)" ng-click="saveHotel()" class="btn btn-primary"> 
+    		<button ng-disabled="(tempHotel.place_id === '-1') || (city.hotel.place_id === tempHotel.place_id)" ng-click="saveHotel()" class="btn btn-primary"> 
     			Guardar
     		</button>
     	</div>

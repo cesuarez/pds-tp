@@ -2,15 +2,26 @@ angular.module('tripsApp').controller('CityCtrl',
     ['$scope', '$stateParams', '$location', 'tripsFactory', 'city', 'trip', function(
     $scope, $stateParams, $location, tripsFactory, city, trip){
 
+	function clone(obj) {
+	    if (null == obj || "object" != typeof obj) return obj;
+	    var copy = obj.constructor();
+	    for (var attr in obj) {
+	        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+	    }
+	    return copy;
+	}
+
 	$scope.trip = trip;
 	$scope.city = city;
 	$scope.hotels = [{name: "Seleccione un Hotel", place_id: "-1"}];
 	if ($scope.city.hotel){
-		$scope.tempHotel = $scope.city.hotel;
-		$scope.hotelId = $scope.city.hotel.place_id;
+		$scope.tempHotel = clone($scope.city.hotel);
+		//$scope.hotelId = $scope.city.hotel.place_id;
 	} else {
-		$scope.hotelId = "-1";
+		$scope.tempHotel = $scope.hotels[0];
+		//$scope.hotelId = "-1";
 	}
+
 
 	$scope.calculateInitAndEnd = function(){
 		var daysAccu = 0;
@@ -65,7 +76,7 @@ angular.module('tripsApp').controller('CityCtrl',
 		if ($scope.hotelMarker) $scope.hotelMarker.setMap(null);
 
 		// Lo creo denuevo
-		if ($scope.hotelId !== '-1'){
+		if ($scope.tempHotel.place_id !== '-1'){
     		var point = new google.maps.LatLng($scope.tempHotel.location[0], $scope.tempHotel.location[1]);
     		$scope.hotelMarker = new google.maps.Marker({
                 position: point,
@@ -99,10 +110,9 @@ angular.module('tripsApp').controller('CityCtrl',
     	});
     });
 
-
     $scope.saveHotel = function(){
     	var hotelJson = {
-			place_id: $scope.hotelId,
+			place_id: $scope.tempHotel.place_id,
 			name: $scope.tempHotel.name,
 			location: $scope.tempHotel.location,
 			rating: $scope.tempHotel.rating,
@@ -124,12 +134,11 @@ angular.module('tripsApp').controller('CityCtrl',
 	}
 
 	$scope.hotelChanged = function(){
-		var request = { placeId: $scope.hotelId };
+		var request = { placeId: $scope.tempHotel.place_id };
 		$scope.service.getDetails(request, function(detailedHotel, status){
 			$scope.$apply(function(){
 				if (status == google.maps.places.PlacesServiceStatus.OK) {
 					$scope.tempHotel = detailedHotel;
-					console.log(detailedHotel);
 					$scope.tempHotel.location = $scope.createLocation($scope.tempHotel.geometry.location);
 					$scope.updateHotelMarker();
 				}

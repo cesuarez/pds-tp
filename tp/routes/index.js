@@ -140,6 +140,7 @@ router.post('/trips/:trip/cities/:city/hotels', auth, function(req, res, next) {
 
 // Update Hotel
 router.post('/trips/:trip/cities/:city/hotels/:hotel', auth, function(req, res, next) {
+    delete req.body._id;
     Hotel.findByIdAndUpdate(req.params.hotel, req.body, function(err, hotel){
         if (err) { return next(err); }
         if (!hotel) { return next(new Error('Hotel no encontrado')); }
