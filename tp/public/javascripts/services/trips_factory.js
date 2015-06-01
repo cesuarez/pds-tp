@@ -7,9 +7,12 @@ angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($h
 	    return $http.get('/trips/' + id).then(function(res){
 	    	return res.data;
 	    });
-		
-  		// Para no ir al servidor
-  		// return o.trips.filter(function(trip) {return trip._id == id;})[0]
+	};
+
+	o.getCity = function(tripId, cityId){
+		return $http.get('/trips/' + tripId + '/cities/' + cityId).then(function(res){
+	    	return res.data;
+	    });
 	};
 
   	o.getAll = function() {
@@ -31,7 +34,7 @@ angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($h
 		).success(function(data){
 	        angular.copy(data, o.trips);
 	    });
-	}
+	};
 
 	o.addCity = function(trip, city) {
 		return $http.post('/trips/' + trip._id + '/cities', city, 
@@ -39,15 +42,30 @@ angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($h
 		).success(function(data){
 			trip.cities.push(data);
 		});
-	}
+	};
 
+	o.updateHotel = function(trip, city, hotel) {
+		return $http.post('/trips/' + trip._id + '/cities/' + city._id + '/hotels/' + hotel._id, hotel, 
+			{headers: {Authorization: 'Bearer ' + auth.getToken()}}
+		).success(function(data){
+			angular.copy(hotel, city.hotel);
+		});
+	};
+
+	o.createHotel = function(trip, city, hotel) {
+		return $http.post('/trips/' + trip._id + '/cities/' + city._id + '/hotels', hotel, 
+			{headers: {Authorization: 'Bearer ' + auth.getToken()}}
+		).success(function(data){
+			city.hotel = data;
+		});
+	};
 
 	o.deleteCity = function(trip, city_id ) {
 		return $http.delete('/trips/' + trip._id + '/cities/' + city_id, {headers: {Authorization: 'Bearer ' + auth.getToken()}}
 		).success(function(data){
 	        angular.copy(data, trip.cities);
 	    });
-	}
+	};
 
   	return o;
 }]);

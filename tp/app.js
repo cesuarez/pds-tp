@@ -10,6 +10,7 @@ mongoose.connect('mongodb://localhost/trips');
 require('./models/trip');
 require('./models/user');
 require('./models/city');
+require('./models/hotel');
 require('./config/passport');
 
 var routes = require('./routes/index');

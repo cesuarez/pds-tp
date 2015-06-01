@@ -1,0 +1,53 @@
+<div class="page-header">
+	<h4> {{trip.name}} </h4>
+    <h1> {{city.name}} </h1>
+    <span style="color:grey"> {{initDate | date : 'shortDate'}} al {{endDate | date : 'shortDate'}}</span>
+</div>
+
+<div class="form-group">
+
+	<div class="col-md-6">
+		<h3>Hospedaje</h3>
+
+	    <div class="form-group">
+	    	<select ng-model="hotelId" class="form-control" ng-change="hotelChanged()">
+	    		<option ng-repeat="hotelElem in hotels"
+			            value="{{hotelElem.place_id}}">
+			        {{hotelElem.name}}
+	    		</option>
+	    	</select>
+	    </div>
+
+	    <div class="form-group">
+	    	<span class="hotel-property">Dir:</span> <span>{{tempHotel.formatted_address}}</span>
+	    </div>
+
+	    <div class="form-group">
+	    	<span class="hotel-property">Tel:</span> <span>{{tempHotel.formatted_phone_number}}</span>
+	    </div>
+
+	    <div class="form-group">
+	    	<span  class="hotel-property">Calificacion:</span> <span> {{tempHotel.rating}}/5</span>
+	    </div>
+
+	    <div class="form-group">
+	    	<span  class="hotel-property">Página Web:</span> <span><a href="{{tempHotel.website}}">Link</a></span>
+	    </div>
+
+	    <div class="form-group">
+    		<button ng-disabled="(hotelId === '-1') || (city.hotel.place_id === hotelId)" ng-click="saveHotel()" class="btn btn-primary"> 
+    			Guardar
+    		</button>
+    	</div>
+
+	</div>
+
+	<div class="col-md-6">
+		<div class="ng-map" id="map-canvas"></div>
+	</div>
+
+</div>
+
+<div class="col-md-12">
+	<button style="margin-top:30px" class="btn btn-default" ng-click="back()"> Volver </button>
+</div>

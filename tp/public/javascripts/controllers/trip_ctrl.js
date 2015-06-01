@@ -139,7 +139,7 @@ angular.module('tripsApp').controller('TripCtrl',
     
 
     ////////////////////////////////
-    // GOOGLE MAPS
+    // GOOGLE MAP
     ////////////////////////////////
 
     $scope.maxZoom = 7;

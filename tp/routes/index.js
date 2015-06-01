@@ -5,6 +5,7 @@ var passport = require('passport');
 var Trip = mongoose.model('Trip');
 var User = mongoose.model('User');
 var City = mongoose.model('City');
+var Hotel = mongoose.model('Hotel');
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
@@ -86,6 +87,20 @@ router.post('/trips/:trip/cities', auth, function(req, res, next) {
     });
 });
 
+// Get City
+router.get('/trips/:trip/cities/:city', function(req, res, next) {
+    City.findById(req.params.city, function (err, city){
+        if (err) { return next(err); }
+        if (!city) { return next(new Error('Ciudad no encontrada')); }
+
+        city.populate('hotel', function(err, city) {
+            if (err) { return next(err); }
+            res.json(city);
+        });
+    });
+});
+
+
 // Delete City
 router.delete('/trips/:trip/cities/:city', auth, function(req, res, next) {
     City.findByIdAndRemove(req.params.city, function(err, data) {
@@ -101,6 +116,38 @@ router.delete('/trips/:trip/cities/:city', auth, function(req, res, next) {
         });
     });
 });
+
+// Create Hotel
+router.post('/trips/:trip/cities/:city/hotels', auth, function(req, res, next) {
+    var hotel = new Hotel(req.body);
+
+    hotel.save(function(err, hotel){
+        if(err){ return next(err); }
+
+        City.findById(req.params.city, function (err, city){
+            if (err) { return next(err); }
+            if (!city) { return next(new Error('Ciudad no encontrada')); }
+
+            city.hotel = hotel;
+            city.save(function(err, city) {
+                if(err){ return next(err);}
+
+                res.json(hotel);
+            });
+        });
+    });
+});
+
+// Update Hotel
+router.post('/trips/:trip/cities/:city/hotels/:hotel', auth, function(req, res, next) {
+    Hotel.findByIdAndUpdate(req.params.hotel, req.body, function(err, hotel){
+        if (err) { return next(err); }
+        if (!hotel) { return next(new Error('Hotel no encontrado')); }
+
+        res.json({});
+    });
+});
+
 
 
 // Params
