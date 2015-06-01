@@ -42,6 +42,17 @@
 	height: 25;
 }
 
+.right_button {
+  width: 25;
+  height: 25;
+  right: 0px;
+  float: right;
+}
+
+.hotel-property {
+    font-weight: bold;
+}
+
 
 /* 
 // Boton Circular
