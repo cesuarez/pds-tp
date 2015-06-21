@@ -12,6 +12,9 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
+    jshint: {
+      all: ['Gruntfile.js', 'routes/**/*.js']
+    },
     wiredep: {
       task: {
         src: ['views/**/*.ejs']
@@ -30,9 +33,12 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-wiredep');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Default task(s).
   //grunt.registerTask('default', ['uglify']);
   //grunt.registerTask('default', ['compile']);
+
+  grunt.registerTask('default', 'jshint');
 
 };
