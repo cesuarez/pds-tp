@@ -8,6 +8,10 @@ module.exports = function(grunt) {
       unit: {
           configFile: 'karma.conf.js'
       },
+      unix: {
+        configFile: 'karma.conf.js',
+        browsers: ['Firefox']
+      },
       travis: {
           configFile: 'karma.conf.js',
           singleRun: true,
@@ -50,9 +54,9 @@ module.exports = function(grunt) {
       }
     },
     
-    //jshint: {
-    //  all: ['Gruntfile.js', 'routes/**/*.js']
-    //},
+    jshint: {
+      all: ['Gruntfile.js', 'public/**/*.js']
+    },
     
     wiredep: {
       task: {
@@ -79,8 +83,8 @@ module.exports = function(grunt) {
   //grunt.registerTask('default', ['uglify']);
   //grunt.registerTask('default', ['compile']);
 
-  grunt.registerTask('default', 'jshint');
-  grunt.registerTask('protractorTest', 'protractor');
-  grunt.registerTask('test', ['karma:travis']);
+  grunt.registerTask('localTest', ['karma:unit']);
+  grunt.registerTask('unixTest', ['karma:unix']);
+  grunt.registerTask('test', ['karma:travis'])
 
 };

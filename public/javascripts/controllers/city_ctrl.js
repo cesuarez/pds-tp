@@ -13,7 +13,6 @@ angular.module('tripsApp').controller('CityCtrl',
 
 	$scope.trip = trip;
 	$scope.city = city;
-	console.log($scope.city.places);
 	$scope.hotels = [{name: "Seleccione un Hotel", place_id: "-1"}];
 	if ($scope.city.hotel){
 		$scope.tempHotel = clone($scope.city.hotel);
