@@ -77,14 +77,14 @@ angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($h
 		});
 	};
 
-	o.deletePlace = function(trip, city, place_id ) {
+	o.deletePlace = function(trip, city, place_id) {
 		return $http.delete('/trips/' + trip._id + '/cities/' + city._id + '/places/' + place_id, {headers: {Authorization: 'Bearer ' + auth.getToken()}}
 		).success(function(data){
 	        angular.copy(data, city.places);
 	    });
 	};
 
-	o.deleteCity = function(trip, city_id ) {
+	o.deleteCity = function(trip, city_id) {
 		return $http.delete('/trips/' + trip._id + '/cities/' + city_id, {headers: {Authorization: 'Bearer ' + auth.getToken()}}
 		).success(function(data){
 	        angular.copy(data, trip.cities);

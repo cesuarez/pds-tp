@@ -3,6 +3,13 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
+      }
+    },
+
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -12,9 +19,11 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
-    jshint: {
-      all: ['Gruntfile.js', 'routes/**/*.js']
-    },
+    
+    //jshint: {
+    //  all: ['Gruntfile.js', 'routes/**/*.js']
+    //},
+    
     wiredep: {
       task: {
         src: ['views/**/*.ejs']
@@ -30,6 +39,7 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-karma');
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-wiredep');

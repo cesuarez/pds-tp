@@ -21,8 +21,9 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory',
                 name: $scope.trip.name,
                 initDate: $scope.trip.initDate,
                 endDate: $scope.trip.endDate
+            }).then(function() {
+                $scope.resetTrip();
             });
-            $scope.resetTrip()
         }
     };
 
