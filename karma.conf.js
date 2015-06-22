@@ -31,6 +31,11 @@ module.exports = function(config) {
         'tests/*.js'
     ],
 
+    plugins : [
+        'karma-jasmine',
+        'karma-phantomjs-launcher'
+    ],
+
 
     // list of files to exclude
     exclude: [
