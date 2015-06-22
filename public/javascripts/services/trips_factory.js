@@ -70,10 +70,7 @@ angular.module('tripsApp').factory('tripsFactory', ['$http', 'auth', function($h
 		return $http.post('/trips/' + trip._id + '/cities/' + city._id + '/places', place, 
 			{headers: {Authorization: 'Bearer ' + auth.getToken()}}
 		).success(function(data){
-			console.log("PLACE GUARDADO:", data);
-			console.log(city);
 			city.places.push(data);
-			console.log(city);
 		});
 	};
 

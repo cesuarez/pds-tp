@@ -1,4 +1,4 @@
-/*
+
 'use strict';
 
 describe("CityCtrl", function() {
@@ -16,48 +16,55 @@ describe("CityCtrl", function() {
         document.body.appendChild(mapDiv);
 
         // Metodos Mockeados del Service
-        spyOn(tripsFactory, 'addCity').and.callFake(function() {
-            scope.trip.cities = [
-                {_id:1, location:[0,0]},
-                {_id:2, location:[0,0]}
-            ];
+        
+        spyOn(tripsFactory, 'updateHotel').and.callFake(function() {
+            scope.city.hotel = {_id:2};
             return {
                 then: function(callback) { callback() }
             };
         });
 
-        spyOn(tripsFactory, 'deleteCity').and.callFake(function() {
-            scope.trip.cities = [];
+        spyOn(tripsFactory, 'createHotel').and.callFake(function() {
+            scope.city.hotel = {_id:1};
             return {
                 then: function(callback) { callback() }
             };
         });
+        
+        spyOn(tripsFactory, 'deletePlace').and.callFake(function() {
+            scope.city.places = [];
+        });
 
-        var mockedTrip = {cities: [{_id:1, location:[0,0]}]}
+        var mockedCity = {
+            _id: 1,
+            location: [0,0],
+            places: [{_id:1, location:[0,0]}]
+        };
+        var mockedTrip = {cities: [mockedCity]};
 
         controller = $controller('CityCtrl', { 
             $scope: scope,
             tripsFactory: tripsFactory,
+            city: mockedCity,
             trip: mockedTrip
         });
     }));
 
-
-    it("deletes a city", function() {
-        scope.removeCity();
-        expect(scope.trip.cities).toEqual([]);
+    it("deletes a place", function() {
+        scope.deletePlace(1);
+        expect(scope.city.places).toEqual([]);
     });
     
-    it("adds a city", function() {
-        scope.validateCityForm = function() {
-            scope.validCityForm = true;
-        };
-        scope.addCity();
-        expect(scope.trip.cities).toEqual([
-            {_id:1, location:[0,0]},
-            {_id:2, location:[0,0]}
-        ]);
+    it("updates a hotel", function() {
+        scope.city.hotel = {_id:1};
+        scope.saveHotel();
+        expect(scope.city.hotel).toEqual({_id:2});
     });
+    
+    it("creates a hotel", function() {
+        scope.saveHotel();
+        expect(scope.city.hotel).toEqual({_id:1});
+    });
+    
     
 });
-*/

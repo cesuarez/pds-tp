@@ -33,9 +33,9 @@ module.exports = function(grunt) {
       }
     },
     
-    //jshint: {
-    //  all: ['Gruntfile.js', 'routes/**/*.js']
-    //},
+    jshint: {
+      all: ['Gruntfile.js', 'public/**/*.js']
+    },
     
     wiredep: {
       task: {
@@ -62,8 +62,9 @@ module.exports = function(grunt) {
   //grunt.registerTask('default', ['uglify']);
   //grunt.registerTask('default', ['compile']);
 
-  grunt.registerTask('default', 'jshint');
+  grunt.registerTask('jshint', 'jshint');
 
+  grunt.registerTask('localTest', ['karma:unit']);
   grunt.registerTask('test', ['karma:travis'])
 
 };
