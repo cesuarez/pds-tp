@@ -33,7 +33,8 @@ module.exports = function(config) {
 
     plugins : [
         'karma-jasmine',
-        'karma-phantomjs-launcher'
+        'karma-phantomjs-launcher',
+        'karma-firefox-launcher'
     ],
 
 
