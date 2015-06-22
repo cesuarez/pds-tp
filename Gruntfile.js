@@ -6,9 +6,22 @@ module.exports = function(grunt) {
 
     karma: {
       unit: {
-        configFile: 'karma.conf.js'
+          configFile: 'karma.conf.js'
+      },
+      travis: {
+          configFile: 'karma.conf.js',
+          singleRun: true,
+          browsers: ['PhantomJS']
       }
     },
+
+    
+    //watch: {
+    //    karma: {
+    //        files: ['src/**/*.js', 'test/unit/**/*.js'],
+    //        tasks: ['karma:unit:run']
+    //    }
+    //},
 
     uglify: {
       options: {
@@ -50,5 +63,7 @@ module.exports = function(grunt) {
   //grunt.registerTask('default', ['compile']);
 
   grunt.registerTask('default', 'jshint');
+
+  grunt.registerTask('test', ['karma:travis'])
 
 };
