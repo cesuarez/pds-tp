@@ -9,3 +9,5 @@ before_script:
   - npm install karma-phantomjs-launcher --save-dev
   - npm install -g phantomjs --save-dev
   - bower install
+
+script: phantomjs testrunner.js
