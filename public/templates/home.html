@@ -9,11 +9,13 @@
                 <input class="delete_button" type="image" src="images/delete_button.png"  
                       ng-click="prepareForDelete(trip._id)"></span>
             </div>
-            <a href="#/trips/{{trip._id}}" style="text-decoration: none;"> 
-                <div style="font-size:20px; color:black;">
-                    {{trip.name}}
-                </div>
-            </a>
+            <div id="trip_{{$index}}" ng-click="tripClicked(trip)">
+                <a href="" style="text-decoration: none;"> 
+                    <div style="font-size:20px; color:black;">
+                        {{trip.name}}
+                    </div>
+                </a>
+            </div>
         </li>
     </div> 
 </ul>
@@ -93,7 +95,7 @@
         </div>
 
         <div class="col-md-12 form-group">
-            <button type="submit" class="btn btn-primary"> Crear </button>
+            <button type="submit" class="btn btn-primary" id="createTrip"> Crear </button>
         </div>
     </div>
 </form>

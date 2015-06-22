@@ -8,11 +8,32 @@ module.exports = function(grunt) {
       unit: {
           configFile: 'karma.conf.js'
       },
+      unix: {
+        configFile: 'karma.conf.js',
+        browsers: ['Firefox']
+      },
       travis: {
           configFile: 'karma.conf.js',
           singleRun: true,
           browsers: ['Firefox']
       }
+    },
+
+    protractor: {
+      options: {
+        configFile: "protractor.conf.js", // Default config file 
+        keepAlive: true, // If false, the grunt process stops when the test fails. 
+        noColor: false, // If true, protractor will not use colors in its output. 
+        args: {
+          // Arguments passed to the command 
+        }
+      },
+      your_target: {   // Grunt requires at least one target to run so you can simply put 'all: {}' here too. 
+        options: {
+          configFile: "protractor.conf.js", // Target-specific config file 
+          args: {} // Target-specific arguments 
+        }
+      },
     },
 
     
@@ -53,18 +74,17 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-karma');
-  // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-wiredep');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-protractor-runner');
 
   // Default task(s).
   //grunt.registerTask('default', ['uglify']);
   //grunt.registerTask('default', ['compile']);
 
-  grunt.registerTask('jshint', 'jshint');
-
   grunt.registerTask('localTest', ['karma:unit']);
+  grunt.registerTask('unixTest', ['karma:unix']);
   grunt.registerTask('test', ['karma:travis'])
 
 };

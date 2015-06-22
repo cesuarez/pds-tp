@@ -1,5 +1,5 @@
-angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory', 
-    function($scope, tripsFactory){
+angular.module('tripsApp').controller('HomeCtrl', ['$scope', '$location', 'tripsFactory', 
+    function($scope, $location, tripsFactory){
 
     $scope.trips = tripsFactory.trips;
 
@@ -75,6 +75,10 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', 'tripsFactory',
         } else {
             return false;
         }
+    }
+
+    $scope.tripClicked = function(trip){
+        $location.path('/trips/' + trip._id)
     }
 
     $scope.validDates = function() {
