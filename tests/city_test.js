@@ -50,6 +50,7 @@ describe("CityCtrl", function() {
         });
     }));
 
+
     it("deletes a place", function() {
         scope.deletePlace(1);
         expect(scope.city.places).toEqual([]);
