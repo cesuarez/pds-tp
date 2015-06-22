@@ -3,5 +3,5 @@ exports.config = {
   capabilities: {
   'browserName': 'firefox'
   },
-  specs: ['specs/fooSpec.js']
+  specs: ['tests/protractor/*.js']
 }
