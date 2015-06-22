@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Viajes</title>
+        
+        <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+
+        <!-- bower:css -->
+        <link rel="stylesheet" href="/javascripts/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="/javascripts/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" />
+        <link rel="stylesheet" href="/javascripts/lib/fullcalendar/dist/fullcalendar.css" />
+        <!-- endbower -->
+
+        <!-- Va despues que bootstrap, hay clases que hay que pisar -->
+        <link rel="stylesheet" href="/javascripts/css/style.css" />
+
+        <!-- Va antes que angular-google-maps -->
+        <script src='http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&language=es&v=3.17'></script>
+
+        <!-- bower:js-->
+        <script src="/javascripts/lib/jquery/dist/jquery.js"></script>
+        <script src="/javascripts/lib/angular/angular.js"></script>
+        <script src="/javascripts/lib/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="/javascripts/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="/javascripts/lib/moment/moment.js"></script>
+        <script src="/javascripts/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+        <script src="/javascripts/lib/ngmap/build/scripts/ng-map.js"></script>
+        <script src="/javascripts/lib/fullcalendar/dist/fullcalendar.js"></script>
+        <script src="/javascripts/lib/angular-mocks/angular-mocks.js"></script>
+        <!-- endbower-->
+
+        <!-- Controllers y Services de Angular nuestros -->
+        <script src="/javascripts/angularApp.js"></script>
+        <script src="/javascripts/controllers/auth_ctrl.js"></script>
+        <script src="/javascripts/controllers/nav_ctrl.js"></script>
+        <script src="/javascripts/controllers/home_ctrl.js"></script>
+        <script src="/javascripts/controllers/trip_ctrl.js"></script>
+        <script src="/javascripts/controllers/city_ctrl.js"></script>
+        <script src="/javascripts/services/trips_factory.js"></script>
+        <script src="/javascripts/services/authentication_factory.js"></script>
+    </head>
+
+    <body style="background-color:#EEE" ng-app="tripsApp">
+        <div ng-controller="NavCtrl">
+            <nav class="navbar navbar-default pull-right">
+                <ul class="nav navbar-nav">
+                    <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+                    <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+                    <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+                    <li ng-hide="isLoggedIn()"><a href="/#/register">Registrarse</a></li>
+                </ul>
+            </nav>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <ui-view></ui-view>              
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
