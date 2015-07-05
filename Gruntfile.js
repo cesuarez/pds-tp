@@ -86,7 +86,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('localTest', ['karma:unit']);
   grunt.registerTask('unixTest', ['karma:unix']);
-  grunt.registerTask('test', ['karma:travis']);
-  grunt.registerTask('default', 'jshint');
+  grunt.registerTask('travis', ['jshint', 'karma:travis']);
 
 };
