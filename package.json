@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "grunt test"
+    "test": "grunt test",
+    "jshint": "grunt default"
   },
   "dependencies": {
     "angular-momentjs": "^0.1.9",

@@ -55,7 +55,8 @@ module.exports = function(grunt) {
     },
     
     jshint: {
-      all: ['Gruntfile.js', 'public/**/*.js']
+      controllers: ['Gruntfile.js', 'public/javascripts/controllers/**/*.js'],
+      services: ['Gruntfile.js', 'public/javascripts/services/**/*.js']
     },
     
     wiredep: {
@@ -85,6 +86,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('localTest', ['karma:unit']);
   grunt.registerTask('unixTest', ['karma:unix']);
-  grunt.registerTask('test', ['karma:travis'])
+  grunt.registerTask('test', ['karma:travis']);
+  grunt.registerTask('default', 'jshint');
 
 };
