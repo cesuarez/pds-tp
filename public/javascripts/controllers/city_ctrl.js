@@ -215,7 +215,7 @@ angular.module('tripsApp').controller('CityCtrl',
 
         google.maps.event.addListener(marker, 'click', function() {
 			console.log(place);
-        	if ($scope.city.places.filter(function(place) {return place.title == marker.title;}).length == 0){
+        	if ($scope.city.places.filter(function(place) {return place.title == marker.title;}).length === 0){
 			  	tripsFactory.addPlace($scope.trip, $scope.city, {
 			  		title: marker.title,
 			  		location: $scope.createLocation(marker.position)

@@ -7,7 +7,7 @@ angular.module('tripsApp').factory('auth', ['$http', '$window', '$location', fun
 
   auth.getToken = function (){
     return $window.localStorage['trips-token'];
-  }
+  };
 
   auth.isLoggedIn = function(){
     var token = auth.getToken();

@@ -67,7 +67,7 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', '$location', 'trips
     $scope.validTimeInterval = function() {
         if (!$scope.initDateErrors && !$scope.endDateErrors) {
             if ($scope.trip.initDate > $scope.trip.endDate){
-                $scope.endDateErrors = "La fecha de llegada es menor que la de salida"
+                $scope.endDateErrors = "La fecha de llegada es menor que la de salida";
                 return false;
             } else {
                 return true;
@@ -78,7 +78,7 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', '$location', 'trips
     };
 
     $scope.tripClicked = function(trip){
-        $location.path('/trips/' + trip._id)
+        $location.path('/trips/' + trip._id);
     };
 
     $scope.validDates = function() {
