@@ -28,7 +28,7 @@ module.exports = function(config) {
         'public/javascripts/angularApp.js',
         'public/javascripts/controllers/*.js',
         'public/javascripts/services/*.js',
-        'tests/*.js'
+        'tests/jasmine/*.js'
     ],
 
     plugins : [
