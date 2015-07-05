@@ -3,7 +3,7 @@ angular.module('tripsApp').controller('CityCtrl',
     $scope, $stateParams, $location, tripsFactory, city, trip){
 
 	function clone(obj) {
-	    if (null == obj || "object" != typeof obj) return obj;
+	    if (null === obj || "object" != typeof obj) return obj;
 	    var copy = obj.constructor();
 	    for (var attr in obj) {
 	        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
@@ -55,7 +55,7 @@ angular.module('tripsApp').controller('CityCtrl',
 
     $scope.createLocation = function(point){
         var pointKeys = Object.keys(point);
-        return [ point[pointKeys[0]], point[pointKeys[1]] ]
+        return [ point[pointKeys[0]], point[pointKeys[1]] ];
     };
 
     $scope.getHotelById = function(id){
@@ -119,7 +119,7 @@ angular.module('tripsApp').controller('CityCtrl',
 			formatted_address: $scope.tempHotel.formatted_address,
 			website: $scope.tempHotel.website,
 			formatted_phone_number: $scope.tempHotel.formatted_phone_number
-		}
+		};
 
 		if ($scope.city.hotel){
 			hotelJson._id = $scope.city.hotel._id;
@@ -131,7 +131,7 @@ angular.module('tripsApp').controller('CityCtrl',
 	            $scope.updateMap();
 	        });
 		}		
-	}
+	};
 
 	$scope.hotelChanged = function(){
 		var request = { placeId: $scope.tempHotel.place_id };
@@ -144,7 +144,7 @@ angular.module('tripsApp').controller('CityCtrl',
 				}
 			});
 		});
-	}
+	};
 
 	///////////////////////
 	// DIEGO
@@ -186,7 +186,7 @@ angular.module('tripsApp').controller('CityCtrl',
       	} else {
       		if (status == google.maps.places.PlacesServiceStatus.OK) {
       			results.forEach(function(place){
-		        	if (place.types.filter(function(type) {return type === "lodging"}).length == 0){
+		        	if (place.types.filter(function(type) {return type === "lodging";}).length === 0){
 		            	$scope.createMarker(place);
 		        	}
 		        });
@@ -226,7 +226,7 @@ angular.module('tripsApp').controller('CityCtrl',
 
     $scope.deletePlace = function(placeId){
 		tripsFactory.deletePlace(trip, city, placeId);
-    }
+    };
 
 	$scope.back = function(){
         $location.url("/trips/" + $stateParams.trip_id); 

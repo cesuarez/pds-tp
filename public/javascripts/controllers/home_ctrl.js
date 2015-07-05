@@ -12,7 +12,7 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', '$location', 'trips
         $scope.trip.initDate = null;
         $scope.trip.endDate = null;
         $scope.validTripForm = null;
-    }
+    };
 
     $scope.addTrip = function(){
         $scope.validateTripForm();
@@ -30,16 +30,16 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', '$location', 'trips
     $scope.removeTrip = function(){
         tripsFactory.delete($scope.tripToRemove);
         $scope.showDeletePopup(false);
-    }
+    };
 
     $scope.prepareForDelete = function(id){
         $scope.tripToRemove = id;
         $scope.showDeletePopup(true);
-    }
+    };
 
     $scope.showDeletePopup = function(bool) {
         $scope.displayDeletePopup = bool;
-    }
+    };
 
     $scope.validName = function() {
         if (!$scope.trip.name){
@@ -52,7 +52,7 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', '$location', 'trips
             $scope.nameErrors = "";
             return true;
         }
-    }
+    };
 
     $scope.validDate = function(date, errorsName) {
         if (!date){
@@ -62,7 +62,7 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', '$location', 'trips
             $scope[errorsName] = "";
             return true;
         }
-    }
+    };
 
     $scope.validTimeInterval = function() {
         if (!$scope.initDateErrors && !$scope.endDateErrors) {
@@ -75,21 +75,21 @@ angular.module('tripsApp').controller('HomeCtrl', ['$scope', '$location', 'trips
         } else {
             return false;
         }
-    }
+    };
 
     $scope.tripClicked = function(trip){
         $location.path('/trips/' + trip._id)
-    }
+    };
 
     $scope.validDates = function() {
         $scope.validDate($scope.trip.initDate, "initDateErrors");
         $scope.validDate($scope.trip.endDate, "endDateErrors");
         return $scope.validTimeInterval();
-    }
+    };
 
     $scope.validateTripForm = function(){
         $scope.validTripForm = $scope.validName();
         $scope.validTripForm = $scope.validDates() && $scope.validTripForm;
-    }
+    };
 
 }]);

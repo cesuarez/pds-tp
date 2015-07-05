@@ -11,7 +11,7 @@ angular.module('tripsApp').controller('TripCtrl',
 
     $scope.updateEvents = function(){
         $scope.events = [];
-        var curDate = new Date($scope.trip.initDate)
+        var curDate = new Date($scope.trip.initDate);
         $scope.trip.cities.forEach(function(city){
             for (i = 0; i < city.days; i++) { 
                 var date = new Date(curDate).setHours(0,0,0,0);
@@ -32,7 +32,7 @@ angular.module('tripsApp').controller('TripCtrl',
         if (wasHidden){
             $('#calendar').addClass('hidden');
         }
-    }
+    };
 
     $('#calendar').fullCalendar({
         header: {
@@ -49,7 +49,7 @@ angular.module('tripsApp').controller('TripCtrl',
 
     $scope.toggleCalendar = function(){
         $scope.showCalendar = !$scope.showCalendar;
-    }
+    };
 
     $scope.daysBetweenDates = function(date1, date2){
         // The number of milliseconds in one day
@@ -71,7 +71,7 @@ angular.module('tripsApp').controller('TripCtrl',
         $scope.daysLeft = $scope.daysBetween - $scope.trip.cities.reduce(function(accu, city) {
             return accu + city.days;
         }, 0);
-    }
+    };
 
     $scope.daysBetween = $scope.daysBetweenDates(trip.initDate, trip.endDate);
     $scope.daysLeft = $scope.daysBetween;
@@ -89,7 +89,7 @@ angular.module('tripsApp').controller('TripCtrl',
         $scope.updateMap();
         $scope.calculateDaysLeft();
         $scope.updateEvents();
-    }
+    };
 
     $scope.addCity = function(){
         $scope.validateCityForm();
@@ -110,7 +110,7 @@ angular.module('tripsApp').controller('TripCtrl',
             $scope.showDeletePopupCity(false);
             $scope.updateViewVariables();
         });
-    }
+    };
 
     $scope.prepareForDeleteCity = function(city_id){
         $scope.cityToRemove = city_id;
@@ -123,7 +123,7 @@ angular.module('tripsApp').controller('TripCtrl',
 
     $scope.createLocation = function(point){
         var pointKeys = Object.keys(point);
-        return [ point[pointKeys[0]], point[pointKeys[1]] ]
+        return [ point[pointKeys[0]], point[pointKeys[1]] ];
     };
 
     $scope.setCity = function(){
