@@ -17,6 +17,7 @@ deploy:
   user: cris.eze.sua@gmail.com
   password: meantp
   domain: pdstp
+  skip_cleanup: true
   app:
     master: meanjs3
 
