@@ -11,3 +11,14 @@ before_script:
   - bower install
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+
+deploy:
+  provider: openshift
+  user: cris.eze.sua@gmail.com
+  password: meantp
+  domain: pdstp
+  app:
+    master: meanjs3
+
+after_deploy:
+  - ./after_deploy_openshift.sh
