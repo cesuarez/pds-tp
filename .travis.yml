@@ -26,4 +26,3 @@ deploy:
   app:
     master: meanjs3
     development: meanjsdev
-
