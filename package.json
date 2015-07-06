@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www &",
+    "start": "forever stopall && forever start ./bin/www",
     "test": "grunt travis -v"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "serve-favicon": "~2.2.0"
   },
   "devDependencies": {
+    "forever": "^0.14.2",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-jshint": "^0.11.2",
