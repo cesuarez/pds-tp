@@ -20,4 +20,5 @@ deploy:
   skip_cleanup: true
   app:
     master: meanjs3
+    development: meanjsdev
 
