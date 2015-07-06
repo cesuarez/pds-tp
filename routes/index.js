@@ -95,9 +95,6 @@ router.get('/trips/:trip/cities/:city', function(req, res, next) {
     .populate('places')
     .exec(function (err, city) {
         if (err) { return next(err); }
-
-        process.stdout.write("CITY POPULADA: " + city);
-
         res.json(city);
     });
 });
@@ -167,7 +164,6 @@ router.post('/trips/:trip/cities/:city/places', auth, function(req, res, next) {
          
             city.save(function(err, city) {
                 if(err){ return next(err);}
-                process.stdout.write("CITY CON PLACE: " + city);
                 res.json(place);
             });
         });
