@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "main": "node ./bin/www",
     "start": "forever stopall && forever start ./bin/www",
     "test": "grunt travis -v"
   },
