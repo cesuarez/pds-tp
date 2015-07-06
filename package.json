@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "test": "grunt travis -v"
   },
-  "main":"/bin/www",
+  "main":"bin/www",
   "dependencies": {
     "angular-momentjs": "^0.1.9",
     "body-parser": "~1.12.0",
