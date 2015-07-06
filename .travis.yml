@@ -21,4 +21,5 @@ deploy:
     master: meanjs3
 
 after_deploy:
-  - ./after_deploy_openshift.sh
+  - cd "'~/app-deployments/current/repo'"
+  - "npm start"
