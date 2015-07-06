@@ -12,6 +12,11 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 
+branches:
+  only:
+    - master 
+    - development
+
 deploy:
   provider: openshift
   user: cris.eze.sua@gmail.com
