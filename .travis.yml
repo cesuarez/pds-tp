@@ -21,5 +21,6 @@ deploy:
     master: meanjs3
 
 after_deploy:
+  - "rhc ssh meanjs3"
   - "cd ~/app-deployments/current/repo"
   - "npm start"

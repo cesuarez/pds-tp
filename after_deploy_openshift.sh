@@ -1,3 +1,3 @@
 #!/bin/bash 
-cd "~/app-deployments/current/repo"
+cd ~/app-deployments/current/repo
 npm start
